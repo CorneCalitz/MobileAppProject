@@ -2,11 +2,7 @@ package com.example.eduvosproject;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,36 +18,21 @@ public class NavActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
+        // Switches fragment to one that the user clicks on.
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
-
-            if (item.getItemId() == R.id.home) {
+            if (item.getItemId() == R.id.nav_home) {
                 replaceFragment(new HomeFragment());
             }
-            else if (item.getItemId() == R.id.profile) {
+            else if (item.getItemId() == R.id.nav_courses) {
+                replaceFragment(new CoursesFragment());
+            }
+            else if (item.getItemId() == R.id.nav_quiz) {
+                replaceFragment(new QuizFragment());
+            }
+            else if (item.getItemId() == R.id.nav_profile) {
                 replaceFragment(new ProfileFragment());
             }
-            else if (item.getItemId() == R.id.settings) {
-                replaceFragment(new SettingsFragment());
-            }
             return true;
-
-
-            /*
-            switch (item.getItemId()){
-
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.profile:
-                    replaceFragment(new ProfileFragment());
-                    break;
-                case R.id.settings:
-                    replaceFragment(new SettingsFragment());
-                    break;
-            }
-            return true;
-             */
         });
     }
 
