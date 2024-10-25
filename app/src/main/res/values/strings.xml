@@ -6,4 +6,35 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="courses_name">
+        <item>Filler text</item>
+        <item>Filler text2</item>
+        <item>Filler text3</item>
+        <item>Filler text4</item>
+        <item>Filler text5</item>
+        <item>Filler text6</item>
+        <item>Filler text7</item>
+        <item>Filler text8</item>
+        <item>Filler text9</item>
+        <item>Filler text10</item>
+        <item>Filler text11</item>
+    </string-array>
+
+    <string-array name="courses_description">
+        <item>Lorem ipsum dolar silat</item>
+        <item>Lorem ipsum dolar silat2</item>
+        <item>Lorem ipsum dolar silat3</item>
+        <item>Lorem ipsum dolar silat4</item>
+        <item>Lorem ipsum dolar silat5</item>
+        <item>Lorem ipsum dolar silat6</item>
+        <item>Lorem ipsum dolar silat7</item>
+        <item>Lorem ipsum dolar silat8</item>
+        <item>Lorem ipsum dolar silat9</item>
+        <item>Lorem ipsum dolar silat10</item>
+        <item>Lorem ipsum dolar silat11</item>
+    </string-array>
+
+
+
 </resources>

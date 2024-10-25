@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.eduvosproject.databinding.ActivityNavBinding;
 
 public class NavActivity extends AppCompatActivity {
+
     ActivityNavBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class NavActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
         fragmentTransaction.commit();
     }
 }
