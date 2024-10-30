@@ -1,6 +1,9 @@
-package com.example.eduvosproject;
+package com.example.eduvosproject.course;
+
+
 
 public class CourseItemModel {
+    // A simple model used to store course view data
 
     String name;
     String description;

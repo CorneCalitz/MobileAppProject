@@ -1,4 +1,4 @@
-package com.example.eduvosproject;
+package com.example.eduvosproject.course;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,16 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eduvosproject.R;
+
 import java.util.ArrayList;
 
 public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecyclerViewAdapter.CourseViewHolder> {
 
+    private final CourseRecyclerViewInterface courseRecyclerViewInterface;
+
     Context context;
     ArrayList<CourseItemModel> courseItemModels;
 
-    public CourseRecyclerViewAdapter(Context context, ArrayList<CourseItemModel> courseItemModels){
+    public CourseRecyclerViewAdapter(Context context, ArrayList<CourseItemModel> courseItemModels, CourseRecyclerViewInterface courseRecyclerViewInterface){
+        // Constructor for our adapter
         this.context = context;
         this.courseItemModels = courseItemModels;
+        this.courseRecyclerViewInterface = courseRecyclerViewInterface;
     }
 
     @NonNull
@@ -28,7 +34,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
         // This is where we inflate the layout ie. giving a look to our rows.
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.course_item_view, parent, false);
-        return new CourseRecyclerViewAdapter.CourseViewHolder(view);
+        return new CourseRecyclerViewAdapter.CourseViewHolder(view, courseRecyclerViewInterface);
     }
 
     @Override
@@ -55,12 +61,26 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
         ImageView ivCourse;
         TextView tvName, tvDescription;
 
-        public CourseViewHolder(@NonNull View itemView) {
+        public CourseViewHolder(@NonNull View itemView, CourseRecyclerViewInterface courseRecyclerViewInterface) {
             super(itemView);
 
             ivCourse = itemView.findViewById(R.id.course_iv);
             tvName = itemView.findViewById(R.id.course_name_tv);
             tvDescription = itemView.findViewById(R.id.course_description_tv);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (courseRecyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION){
+                            courseRecyclerViewInterface.onItemClick(pos);
+                        }
+
+                    }
+                }
+            });
 
 
         }

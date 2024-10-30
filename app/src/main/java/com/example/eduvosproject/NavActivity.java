@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.eduvosproject.course.CoursesFragment;
 import com.example.eduvosproject.databinding.ActivityNavBinding;
+import com.example.eduvosproject.home.HomeFragment;
+import com.example.eduvosproject.profile.ProfileFragment;
+import com.example.eduvosproject.quiz.QuizFragment;
 
 public class NavActivity extends AppCompatActivity {
 

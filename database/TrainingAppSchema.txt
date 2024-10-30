@@ -1,0 +1,170 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema TrainingAppSchema
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema TrainingAppSchema
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `TrainingAppSchema` DEFAULT CHARACTER SET utf8 ;
+USE `TrainingAppSchema` ;
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_user` (
+  `id_user` INT NOT NULL,
+  `name` VARCHAR(24) NOT NULL,
+  `password` VARCHAR(6) NOT NULL,
+  `admin` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE INDEX `id_user_UNIQUE` (`id_user` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_course` (
+  `id_course` INT NOT NULL AUTO_INCREMENT,
+  `course_name` VARCHAR(45) NOT NULL,
+  `course_desc` TINYTEXT NOT NULL,
+  `course_content` TEXT(65000) NOT NULL,
+  PRIMARY KEY (`id_course`),
+  UNIQUE INDEX `id_course_UNIQUE` (`id_course` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_quiz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_quiz` (
+  `id_quiz` INT NOT NULL,
+  `quiz_name` VARCHAR(45) NULL,
+  `tbl_course_id_course` INT NOT NULL,
+  PRIMARY KEY (`id_quiz`),
+  UNIQUE INDEX `id_quiz_UNIQUE` (`id_quiz` ASC) VISIBLE,
+  INDEX `fk_tbl_quiz_tbl_course1_idx` (`tbl_course_id_course` ASC) VISIBLE,
+  CONSTRAINT `fk_tbl_quiz_tbl_course1`
+    FOREIGN KEY (`tbl_course_id_course`)
+    REFERENCES `TrainingAppSchema`.`tbl_course` (`id_course`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_profile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_profile` (
+  `id_profile` INT NOT NULL,
+  `tests_taken` INT NULL,
+  `tests_passed` INT NULL,
+  `tbl_user_id_user` INT NOT NULL,
+  PRIMARY KEY (`id_profile`),
+  UNIQUE INDEX `id_profile_UNIQUE` (`id_profile` ASC) VISIBLE,
+  INDEX `fk_tbl_profile_tbl_user1_idx` (`tbl_user_id_user` ASC) VISIBLE,
+  UNIQUE INDEX `tbl_user_id_user_UNIQUE` (`tbl_user_id_user` ASC) VISIBLE,
+  CONSTRAINT `fk_tbl_profile_tbl_user1`
+    FOREIGN KEY (`tbl_user_id_user`)
+    REFERENCES `TrainingAppSchema`.`tbl_user` (`id_user`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_question`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_question` (
+  `id_question` INT UNSIGNED NOT NULL,
+  `question_asked` TINYTEXT NOT NULL,
+  `question_context` TEXT(500) NULL,
+  `question_answer` INT NOT NULL,
+  `tbl_quiz_id_quiz` INT NOT NULL,
+  PRIMARY KEY (`id_question`),
+  INDEX `fk_tbl_question_tbl_quiz1_idx` (`tbl_quiz_id_quiz` ASC) VISIBLE,
+  CONSTRAINT `fk_tbl_question_tbl_quiz1`
+    FOREIGN KEY (`tbl_quiz_id_quiz`)
+    REFERENCES `TrainingAppSchema`.`tbl_quiz` (`id_quiz`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_choice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_choice` (
+  `id_choice` INT NOT NULL,
+  `choice` VARCHAR(150) NOT NULL,
+  `tbl_question_id_question` INT UNSIGNED NOT NULL,
+  UNIQUE INDEX `id_choice_UNIQUE` (`id_choice` ASC) VISIBLE,
+  INDEX `fk_tbl_choice_tbl_question1_idx` (`tbl_question_id_question` ASC) VISIBLE,
+  PRIMARY KEY (`id_choice`),
+  CONSTRAINT `fk_tbl_choice_tbl_question1`
+    FOREIGN KEY (`tbl_question_id_question`)
+    REFERENCES `TrainingAppSchema`.`tbl_question` (`id_question`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_score`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_score` (
+  `id_score` INT NOT NULL,
+  `quiz_score` INT NULL,
+  `tbl_profile_id_profile` INT NOT NULL,
+  `tbl_quiz_id_quiz` INT NOT NULL,
+  PRIMARY KEY (`id_score`),
+  UNIQUE INDEX `id_score_UNIQUE` (`id_score` ASC) VISIBLE,
+  INDEX `fk_tbl_score_tbl_profile1_idx` (`tbl_profile_id_profile` ASC) VISIBLE,
+  INDEX `fk_tbl_score_tbl_quiz1_idx` (`tbl_quiz_id_quiz` ASC) VISIBLE,
+  CONSTRAINT `fk_tbl_score_tbl_profile1`
+    FOREIGN KEY (`tbl_profile_id_profile`)
+    REFERENCES `TrainingAppSchema`.`tbl_profile` (`id_profile`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tbl_score_tbl_quiz1`
+    FOREIGN KEY (`tbl_quiz_id_quiz`)
+    REFERENCES `TrainingAppSchema`.`tbl_quiz` (`id_quiz`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TrainingAppSchema`.`tbl_response`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TrainingAppSchema`.`tbl_response` (
+  `id_response` INT NOT NULL,
+  `question_response` INT NULL,
+  `tbl_profile_id_profile` INT NOT NULL,
+  `tbl_question_id_question` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_response`),
+  UNIQUE INDEX `id_response_UNIQUE` (`id_response` ASC) VISIBLE,
+  INDEX `fk_tbl_response_tbl_profile1_idx` (`tbl_profile_id_profile` ASC) VISIBLE,
+  INDEX `fk_tbl_response_tbl_question1_idx` (`tbl_question_id_question` ASC) VISIBLE,
+  CONSTRAINT `fk_tbl_response_tbl_profile1`
+    FOREIGN KEY (`tbl_profile_id_profile`)
+    REFERENCES `TrainingAppSchema`.`tbl_profile` (`id_profile`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tbl_response_tbl_question1`
+    FOREIGN KEY (`tbl_question_id_question`)
+    REFERENCES `TrainingAppSchema`.`tbl_question` (`id_question`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

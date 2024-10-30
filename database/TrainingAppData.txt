@@ -1,0 +1,254 @@
+INSERT INTO `trainingappschema`.`tbl_user`
+(`id_user`,`name`,`password`,`admin`)
+VALUES
+(1,'John',123456, 0), 
+(2,'Edward',123456, 0),
+(3,'admin',654321, 1);
+
+INSERT INTO `trainingappschema`.`tbl_course`
+(`id_course`,`course_name`,`course_desc`,`course_content`)
+VALUES
+(1,'Core values','Details the core values that you should strive to uphold.', 'THE PROLOGUE
+
+ Enter Chorus.
+
+CHORUS.
+Two households, both alike in dignity,
+In fair Verona, where we lay our scene,
+From ancient grudge break to new mutiny,
+Where civil blood makes civil hands unclean.
+From forth the fatal loins of these two foes
+A pair of star-cross’d lovers take their life;
+Whose misadventur’d piteous overthrows
+Doth with their death bury their parents’ strife.
+The fearful passage of their death-mark’d love,
+And the continuance of their parents’ rage,
+Which, but their children’s end, nought could remove,
+Is now the two hours’ traffic of our stage;
+The which, if you with patient ears attend,
+What here shall miss, our toil shall strive to mend.
+
+ [_Exit._]
+
+ACT I
+
+SCENE I. A public place.
+
+ Enter Sampson and Gregory armed with swords and bucklers.
+
+SAMPSON.
+Gregory, on my word, we’ll not carry coals.
+
+GREGORY.
+No, for then we should be colliers.
+
+SAMPSON.
+I mean, if we be in choler, we’ll draw.
+
+GREGORY.
+Ay, while you live, draw your neck out o’ the collar.
+
+SAMPSON.
+I strike quickly, being moved.
+
+GREGORY.
+But thou art not quickly moved to strike.
+
+SAMPSON.
+A dog of the house of Montague moves me.
+
+GREGORY.
+To move is to stir; and to be valiant is to stand: therefore, if thou
+art moved, thou runn’st away.
+
+SAMPSON.
+A dog of that house shall move me to stand.
+I will take the wall of any man or maid of Montague’s.
+
+GREGORY.
+That shows thee a weak slave, for the weakest goes to the wall.'), 
+
+(2, 'Wines and liquor', 'A rundown of the alcoholic beverages you will be serving.', "The preparation of the wines in cask and the bottling take place in the
+lower of the two celliers, a mere lad being enabled, by the aid of the
+mechanism provided, to bottle from six to eight thousand bottles a day.
+A single workman can cork about 4,500 bottles, which a second workman
+secures with metal agrafes before they are lowered into the cellars. The
+latter are of two stories, each being divided into three long parallel
+galleries 20 feet high and 23 feet wide, vaulted with stone and floored
+with cement. Bordering the endless stacks of bottles are small gutters,
+into which the wine flows from the exploded bottles. Lofty, well
+ventilated, and beautifully cool, the temperature invariably ranging
+from 45° to 47° Fahrenheit, these capitally-constructed cellars combine
+all that is required for a champagne establishment of the first class.
+The breakage has never exceeded 3 per cent., whereas in some old cellars
+which the firm formerly occupied in the centre of the city, their
+breakage on one occasion amounted to ten times this quantity.
+
+At Fisse, Thirion, and Co.'s, after the wine has been disgorged and
+liqueured, the corks are secured neither with string nor wire, but a
+special metal fastener is employed for the purpose. This consists of a
+triple-branched agrafe, provided with a kind of hinge. A tiny toy
+needle-gun suspended to the agrafe is pulled outwards and turned over
+the top of the bottle, whereupon the fastening becomes instantly
+disengaged, and anything like trouble, uncleanliness, or annoyance is
+entirely avoided. The operation is so easy that a mere child can open a
+bottle of champagne, secured by this patent fastener, as easily and
+rapidly as a grown-up man.
+
+The firm of Fisse, Thirion, and Co. succeeded that of Fisse, Fraiquin,
+and Co.--established originally at Reims in 1821--in 1864, when the
+brand of the house was already well known on the Continent, more
+especially in Belgium and Holland. Since that time the wines have been
+largely introduced into England and the United States, and the firm, who
+have secured medals at many of the recent exhibitions, to-day have
+agents in the English and Dutch Indies and the various European
+settlements in China. Several descriptions of wine are shipped by the
+house, the finest being their dry Cuvée Reservèe and their fragrant
+soft-tasting Cachet d'Or."),
+
+(3, 'Etiquette', 'How to treat guests.', "Your first step should be, of course, the securing of an introduction.
+Introductions still play an important part in social intercourse, and
+many errors are often perpetrated by those ignorant of savoir faire
+(correct form). When introducing a young lady to a stranger for example,
+it is not au fait (correct form) to simply say, Mr. Roe, I want you to
+shake hands with my friend Dorothy. Under the rules of the beau monde
+(correct form) this would probably be done as follows: Dorothy (or Miss
+Doe), shake hands with Mr. Roe. Always give the name of the lady first,
+unless you are introducing some one to the President of the United
+States, the Archbishop of Canterbury, a member of the nobility above a
+baron, or a customer. The person who is being introduced then extends
+his (or her) right ungloved hand and says, Shake. You shake, saying
+at the same time, It's warm (cool) for November (May), to which the
+other replies, I'll say it is.
+
+This brings up the interesting question of introducing two people to
+each other, neither of whose names you can remember. This is generally
+done by saying very quickly to one of the parties, Of course you know
+Miss Unkunkunk. Say the last unk very quickly, so that it sounds like
+any name from Ab to Zinc. You might even sneeze violently. Of course, in
+nine cases out of ten, one of the two people will at once say, I didn't
+get the name, at which you laugh, Ha! Ha! Ha! in a carefree manner
+several times, saying at the same time, Well, well--so you didn't
+get the name--you didn't get the name--well, well. If the man still
+persists in wishing to know who it is to whom he is being introduced,
+the best procedure consists in simply braining him on the spot with a
+club or convenient slab of paving stone.
+
+The introduction, in cases where you have no mutual friend to do the
+introducing, is somewhat more difficult but can generally be arranged as
+follows:
+
+Procure a few feet of stout manila rope or clothes-line, from any of
+the better-class hardware stores. Ascertain (from the Social Register,
+preferably) the location of the young lady's residence, and go there
+on some dark evening about nine o'clock. Fasten the rope across the
+sidewalk in front of the residence about six inches or a foot from the
+ground. Then, with the aid of a match and some kerosene, set fire to
+the young lady's house in several places and retire behind a convenient
+tree. After some time, if she is at home, she will probably be forced to
+run out of her house to avoid being burned to death. In her excitement
+she will fail to notice the rope which you have stretched across
+the sidewalk and will fall. This is your opportunity to obtain an
+introduction. Stepping up to her and touching your hat politely, you
+say, in a well modulated voice, I beg your pardon, Miss Doe, but I
+cannot help noticing that you are lying prone on the sidewalk. If she
+is well bred, she will not at first speak to you, as you are a perfect
+stranger. This silence, however, should be your cue to once more tip
+your hat and remark, I realize, Miss Doe, that I have not had the honor
+of an introduction, but you will admit that you are lying prone on the
+sidewalk. Here is my card--and here is one for Mrs. Doe, your mother.
+At that you should hand her two plain engraved calling cards, each
+containing your name and address. If there are any other ladies in her
+family--aunts, grandmothers, et cetera--it is correct to leave cards for
+them also. Be sure that the cards are clean, as the name on the calling
+card is generally sufficient for identification purposes without the
+addition of the thumbprint.
+
+When she has accepted your cards, she will give you one of hers, after
+which it will be perfectly correct for you to assist her to rise from
+the sidewalk. Do not, however, press your attentions further upon her at
+this time, but after expressing the proper regret over her misfortune it
+would be well to bow and retire"), 
+(4, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(5, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(6, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(7, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(8, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(9, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(10, 'Title', 'If you cant read this then you are cool', 'BOO!'),
+(11, 'Title', 'If you can read this then you paid attention', 'Touch grass');
+
+INSERT INTO `trainingappschema`.`tbl_profile`
+(`id_profile`,
+`tests_taken`,
+`tests_passed`,
+`tbl_user_id_user`)
+VALUES
+(1,3,2,1), (2,2,0,3), (3,NULL,NULL,2);
+
+INSERT INTO `trainingappschema`.`tbl_quiz`
+(`id_quiz`,
+`quiz_name`,
+`tbl_course_id_course`)
+VALUES
+(1, 'Quiz 1: Core values', 1), 
+(2, 'Quiz 2: Wines and liquor', 2),
+(3, 'Quiz 3: Etiquette', 3);
+
+INSERT INTO `trainingappschema`.`tbl_score`
+(`id_score`, `quiz_score`, `tbl_profile_id_profile`, `tbl_quiz_id_quiz`)
+VALUES
+(1, NULL, 1, 1), (2, 6, 1, 2), (3, 6, 1, 3),
+(4, 4, 2, 1),(5, 10, 2, 2),(6, 14, 2, 3), 
+(7, 1, 3, 1),(8, NULL, 3, 2),(9, 10, 3, 3);
+
+INSERT INTO `trainingappschema`.`tbl_question`
+(`id_question`, `question_asked`, `question_context`, `question_answer`, `tbl_quiz_id_quiz`)
+VALUES
+(1, 'Which one of these describes our vision?', NULL,1, 1), 
+(2, 'Which one is not a part of our core values?', NULL,8 ,1),
+(3, 'What does it mean to practise excellence', NULL, 11, 1 ),
+(4 , 'Which of these represent our core values.', 'Testing if the context prompt works', 13, 1),
+(5, 'Which of these red wine grapes originates in South Africa?',NULL, 19 ,2),
+(6, 'Is "sparkling wine" a synonoum for champagne?',NULL, 21 ,2);
+
+
+INSERT INTO `trainingappschema`.`tbl_choice`
+(`id_choice`, `choice`, `tbl_question_id_question`)
+VALUES
+(1, 'World class events and hospitality with a personal touch.', 1), 
+(2, 'To bring people together and have a positive impact on our customers, our team, the environment and the community.', 1),
+(3, 'Innovating in catering options', 1),
+(4, 'We profit from our relationship with you, your events’ success, your happiness and your guests enjoyment, and your repeat and referral business.', 1),
+(5, 'Respect', 2),
+(6, 'Teamwork', 2),
+(7, 'Integrity', 2),
+(8, 'Pride', 2),
+(9, 'Treat stakeholders as if they are part of the family.', 3), 
+(10, 'Cooperatively work with members of your team.', 3), 
+(11, 'Strive to be the best and constantly improve performance by exceeding expectations.', 3),
+(12, 'Integrity, Respect, Pride, Excellence and Teamwork', 4),
+(13, 'Integrity, Respect, Consistency, Excellence and Teamwork', 4),
+(14, 'Integrity, Humility, Teamwork, Excellence and Perserverance', 4),
+(15, 'Integrity, Ambition, Humility, Excellence and Teamwork', 4), 
+(16, 'Cabernet Sauvignon', 5),
+(17, 'Merlot', 5),
+(18, 'Shiraz', 5),
+(19, 'Pinotage', 5),
+(20, 'Yes', 6),
+(21, 'No', 6);
+
+INSERT INTO `trainingappschema`.`tbl_response`
+(`id_response`, `question_response`, `tbl_profile_id_profile`, `tbl_question_id_question`)
+VALUES
+(1, 1, 1, 1), (2, 5, 1, 2), (3, 11, 1, 3), (4, 13, 1, 4), (5, NULL, 1, 5), (6,NULL, 1, 6),
+(7, NULL, 2, 1), (8, NULL, 2, 2), (9, NULL, 2, 3), (10, NULL, 2, 4), (11, NULL, 2, 5), (12,NULL, 2, 6);
+
+
+
+
+
+
+
+
+

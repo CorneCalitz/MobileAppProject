@@ -1,6 +1,6 @@
-package com.example.eduvosproject;
+package com.example.eduvosproject.course;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,16 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.eduvosproject.MainActivity;
+import com.example.eduvosproject.R;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 
-public class CoursesFragment extends Fragment {
+public class CoursesFragment extends Fragment implements CourseRecyclerViewInterface {
 
     // Create arraylist of items that we are placing in the course item view
     ArrayList<CourseItemModel> coursesModel = new ArrayList<>();
@@ -57,10 +58,17 @@ public class CoursesFragment extends Fragment {
         setUpCourseItemModels();
 
         CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(view.getContext(),
-                coursesModel);
+                coursesModel, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onItemClick(int position) {
+        //Code that executes whenever a user clicks on an item.
+        Intent intent = new Intent(getActivity(), CourseViewActivity.class);
+        startActivity(intent);
+
+    }
 }
