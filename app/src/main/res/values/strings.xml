@@ -7,6 +7,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="profile_fragment_title">Profile Fragment</string>
+    <string name="user_name">User Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="tests_taken">Tests Taken:</string>
+    <string name="tests_passed">Tests Passed:</string>
+    <string name="recent_quiz_scores">Recent Quiz Scores:</string>
+
     <string-array name="courses_name">
         <item>Filler text</item>
         <item>Filler text2</item>
@@ -34,6 +41,19 @@
         <item>Lorem ipsum dolar silat10</item>
         <item>Lorem ipsum dolar silat11</item>
     </string-array>
+
+    <string-array name="quiz_titles">
+        <item>Quiz 1</item>
+        <item>Quiz 2</item>
+        <item>Quiz 3</item>
+    </string-array>
+
+    <string-array name="quiz_descriptions">
+        <item>Introduction to Quiz 1</item>
+        <item>Introduction to Quiz 2</item>
+        <item>Introduction to Quiz 3</item>
+    </string-array>
+
 
 
 </resources>
