@@ -71,18 +71,17 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // Decides which position of the recycleView you clicked on so that it can open
+                    // corresponding view.
                     if (courseRecyclerViewInterface != null) {
                         int pos = getAdapterPosition();
 
                         if (pos != RecyclerView.NO_POSITION){
                             courseRecyclerViewInterface.onItemClick(pos);
                         }
-
                     }
                 }
             });
-
-
         }
     }
 }

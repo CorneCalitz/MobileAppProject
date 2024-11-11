@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eduvosproject.MainActivity;
+import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
 
 import java.util.ArrayList;
+
 
 
 public class CoursesFragment extends Fragment implements CourseRecyclerViewInterface {
