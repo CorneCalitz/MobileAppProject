@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.eduvosproject.MainActivity;
 import com.example.eduvosproject.NavActivity;
@@ -36,6 +37,9 @@ public class CoursesFragment extends Fragment implements CourseRecyclerViewInter
             R.drawable.baseline_settings_24, R.drawable.ic_home_black_24dp,
             R.drawable.baseline_person_24};
 
+    public CoursesFragment() {
+        //empty constructor
+    }
 
     private void setUpCourseItemModels(){
         String[] courseNames = getResources().getStringArray(R.array.courses_name);
@@ -56,6 +60,8 @@ public class CoursesFragment extends Fragment implements CourseRecyclerViewInter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toast.makeText(view.getContext(),"Course",Toast.LENGTH_SHORT).show();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerviewCourses);
 

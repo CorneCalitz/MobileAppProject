@@ -20,7 +20,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.0.180/")  //Server URL
+                .baseUrl("http://192.168.0.180/")  //Server URL, trailing "/" is required
                 .client(okHttpClient)
                 .build();
 

@@ -11,6 +11,7 @@ public interface UserService {
     //Creates retrofit style HTTP requests.
 
     // Login request method
+    // trailing "/" is required
     @FormUrlEncoded
     @POST("/app_php/login.php/")
     Call<LoginResponse> loginPost(@Field("name") String name, @Field("password") String password);
