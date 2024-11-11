@@ -3,13 +3,11 @@ package com.example.eduvosproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eduvosproject.api.ApiClient;
-import com.example.eduvosproject.login.LoginResponse;
+import com.example.eduvosproject.datamodel.LoginResponse;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -61,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 name = edtName.getText().toString();
                 password = edtPassword.getText().toString();
 
-
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
-                    tvLoginMessage.setText("Name and password field required.");
+                    tvLoginMessage.setText("Name and password required.");
                 } else {
                     //proceed to login
                     attemptLogin();
@@ -83,26 +80,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                // TODO change so that it checks the response result data.
                 if (response.isSuccessful()) {
-
-                    tvLoginMessage.setText("Login successful");
-
-
                     //Populate login response model with incoming data.
                     LoginResponse loginResponse = response.body();
 
-                    //Convert loginResponse object into a json string, this will be passed with our intent
-                    loginDataString = new Gson().toJson(loginResponse);
+                    assert loginResponse != null;
+                    if (!loginResponse.result.getError()) {
+                        tvLoginMessage.setText("Login successful");
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginDataString));
-                        }
-                    }, 700);
+                        //Convert loginResponse object into a json string, this will be passed with our intent
+                        loginDataString = new Gson().toJson(loginResponse);
+
+                        //Gives a slight delay to login.
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginDataString));
+                            }
+                        }, 700);
+                    } else {
+                        tvLoginMessage.setText(loginResponse.result.getMessage());
+                    }
                 } else {
-                    tvLoginMessage.setText("Login failed");
+                    tvLoginMessage.setText("Response timed out");
                 }
             }
 

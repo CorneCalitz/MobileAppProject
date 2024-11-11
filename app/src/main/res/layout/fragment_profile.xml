@@ -10,30 +10,32 @@
     <!-- Container to hold the profile info elements -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:layout_gravity="center">
+        android:layout_height="430dp"
+        android:layout_gravity="center"
+        android:padding="24dp">
 
         <!-- User Name -->
+
+        <!-- Account Type -->
+
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:text="Username"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:text="@string/user_name" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <!-- Account Type -->
         <TextView
             android:id="@+id/tvAccountType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvUserName"
-            android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp"
-            android:text="@string/account_type" />
+            android:text="@string/account_type"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
 
         <!-- Divider Line -->
         <View
@@ -50,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAccountType"
             android:layout_marginTop="24dp"
-            android:textSize="18sp"
+            android:text="@string/tests_taken"
             android:textColor="@android:color/black"
-            android:text="@string/tests_taken" />
+            android:textSize="18sp" />
 
         <!-- Tests Passed -->
         <TextView
@@ -61,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTestsTaken"
             android:layout_marginTop="8dp"
-            android:textSize="18sp"
+            android:text="@string/tests_passed"
             android:textColor="@android:color/black"
-            android:text="@string/tests_passed" />
+            android:textSize="18sp" />
 
         <!-- Divider Line -->
         <View
@@ -80,9 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTestsPassed"
             android:layout_marginTop="24dp"
-            android:textSize="18sp"
+            android:text="@string/recent_quiz_scores"
             android:textColor="@android:color/black"
-            android:text="@string/recent_quiz_scores" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 </FrameLayout>

@@ -1,6 +1,6 @@
 package com.example.eduvosproject.api;
 
-import com.example.eduvosproject.login.LoginResponse;
+import com.example.eduvosproject.datamodel.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
