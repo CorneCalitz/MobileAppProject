@@ -1,5 +1,6 @@
 package com.example.eduvosproject;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ public class NavActivity extends AppCompatActivity {
     LoginResponse loginResponse;
     String loginJson;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,6 @@ public class NavActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Get and convert data sent with the intent.
-        //TODO remove conversion if it is not necessary in this class.
         loginJson = getIntent().getStringExtra("jsonString");
         loginResponse = new Gson().fromJson(loginJson, LoginResponse.class);
 
@@ -65,5 +64,19 @@ public class NavActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
         fragmentTransaction.commit();
     }
+
+    //Store data if the user closes the app.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", 0);
+        SharedPreferences.Editor edt = sharedPreferences.edit();
+
+        // write all the login data into sharedpref edit.
+        edt.putString("loginData", loginJson);
+        edt.apply();
+    }
+
+
 
 }

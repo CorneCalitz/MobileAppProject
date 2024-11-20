@@ -8,6 +8,7 @@
     android:padding="16dp">
 
     <!-- Container to hold the profile info elements -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -77,6 +78,7 @@
             android:background="@android:color/darker_gray" />
 
         <!-- Quiz Scores -->
+
         <TextView
             android:id="@+id/tvQuizScores"
             android:layout_width="wrap_content"
@@ -87,5 +89,21 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#CC2929"
+            android:text="Logout"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
     </RelativeLayout>
+
 </FrameLayout>

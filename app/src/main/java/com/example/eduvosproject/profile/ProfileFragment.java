@@ -1,16 +1,23 @@
 package com.example.eduvosproject.profile;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.eduvosproject.MainActivity;
+import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.LoginResponse;
 import com.google.gson.Gson;
@@ -23,9 +30,29 @@ public class ProfileFragment extends Fragment {
     LoginResponse loginResponse;
     TextView tvUsername, tvTestsTaken, tvTestsPassed, tvAccountType;
     private String jsonString;
+    Button btnLogout;
 
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+
+    private void buttonLogoutListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPref",getContext().MODE_PRIVATE);
+                Log.d("Test",sharedPreferences.getString("loginData",""));
+                SharedPreferences.Editor edt = sharedPreferences.edit();
+                edt.putString("loginData", "");
+                edt.apply();
+                Log.d("Test2",sharedPreferences.getString("loginData",""));
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
@@ -36,6 +63,8 @@ public class ProfileFragment extends Fragment {
         tvTestsTaken = view.findViewById(R.id.tvTestsTaken);
         tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
         tvAccountType = view.findViewById(R.id.tvAccountType);
+        btnLogout = view.findViewById(R.id.btnLogout);
+
 
         if (getArguments() != null) {
             jsonString = getArguments().getString(ARG_PARAM1);
@@ -49,6 +78,8 @@ public class ProfileFragment extends Fragment {
 
             tvAccountType.setText("Waiter");
         }
+
+        buttonLogoutListener();
     }
 
     @Override

@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +70,13 @@ public class CoursesFragment extends Fragment {
                 CourseRecyclerViewInterface courseInterface = new CourseRecyclerViewInterface() {
                     @Override
                     public void onItemClick(int position) {
-                        Log.d("log3", String.format("%s", position));
+
+                        String courseItemString;
+                        courseItemString = new Gson().toJson(courseItems.get(position));
+
+                        Intent intent = new Intent(getActivity(), CourseViewActivity.class).putExtra("jsonString", courseItemString);
+                        startActivity(intent);
+
                     }
                 };
 

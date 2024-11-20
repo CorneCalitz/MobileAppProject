@@ -37,8 +37,6 @@ public class HomeFragment extends Fragment {
             jsonString = getArguments().getString(ARG_PARAM1);
             loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
             tvHomeMessage.setText(String.format("Welcome %s", loginResponse.user.getName()));
-        } else {
-            tvHomeMessage.setText("Welcome user");
         }
 
     }

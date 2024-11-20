@@ -8,8 +8,6 @@ public class LoginResponse {
     public ProfileClass profile;
 
 
-    //TODO: Ensure data is correct type and remove unused data.
-
     public class ProfileClass {
         // User profile data
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ import com.google.gson.Gson;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import android.content.SharedPreferences;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -114,4 +117,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    // This will run when the app opens again.
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // Fetching the stored data from the SharedPreference
+//        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", 0);
+//        Log.d("testLogin", sharedPreferences.getString("loginData", ""));
+//        //Overrides the login attempt if the loginData exists
+//        if (sharedPreferences.contains("loginData")) {
+//            String loginString  = sharedPreferences.getString("loginData", "");
+//            startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginString));
+//            finish();
+//        }
+//    }
+
 }
