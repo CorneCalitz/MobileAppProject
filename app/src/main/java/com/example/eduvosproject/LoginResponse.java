@@ -1,4 +1,4 @@
-package com.example.eduvosproject.datamodel;
+package com.example.eduvosproject;
 
 public class LoginResponse {
     // Model for the response data retrieved from the server on successful login
@@ -44,15 +44,7 @@ public class LoginResponse {
     public class UserClass {
         // User data.
 
-        String id, name;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
+        String name;
 
         public String getName() {
             return name;

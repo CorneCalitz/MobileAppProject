@@ -16,7 +16,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eduvosproject.api.ApiClient;
-import com.example.eduvosproject.datamodel.LoginResponse;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -42,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //Login button
         buttonLoginListener();
 
     }
 
     public void buttonLoginListener() {
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         edtName = findViewById(R.id.editTextText);
         edtPassword = findViewById(R.id.editTextNumberPassword);
         tvLoginMessage = findViewById(R.id.tvLoginMessage);
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginDataString));
+                                finish();
                             }
                         }, 700);
                     } else {

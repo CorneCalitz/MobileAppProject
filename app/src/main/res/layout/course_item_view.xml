@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="20dp"
     >
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/course_iv"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="12dp"
         android:layout_centerVertical="true"/>
 
     <TextView
+        android:id="@+id/course_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/course_name_tv"
         android:layout_toEndOf="@id/course_iv"
-        android:textColor="@color/black"
         android:text="Name of course"
+        android:textColor="@color/black"
         android:textSize="20dp"
-        />
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/course_description_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/course_description_tv"
-        android:layout_toEndOf="@id/course_iv"
         android:layout_below="@id/course_name_tv"
+        android:layout_toEndOf="@id/course_iv"
+        android:text="Description of a typical course and what happens if it is to long"
         android:textColor="@color/black"
-        android:text="Description of a typical course"
-        android:textSize="16dp"
-        />
+        android:textSize="16sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/course_iv"
         android:background="#C7C7C7"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
 
 
 

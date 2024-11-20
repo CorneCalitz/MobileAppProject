@@ -10,7 +10,7 @@
     <!-- Container to hold the profile info elements -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:padding="24dp">
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textColor="@android:color/black"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -35,7 +35,8 @@
             android:layout_marginTop="4dp"
             android:text="@string/account_type"
             android:textColor="@android:color/darker_gray"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="italic" />
 
         <!-- Divider Line -->
         <View
@@ -54,7 +55,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/tests_taken"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <!-- Tests Passed -->
         <TextView
@@ -65,7 +66,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/tests_passed"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <!-- Divider Line -->
         <View

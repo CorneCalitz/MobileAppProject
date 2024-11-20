@@ -6,48 +6,36 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.eduvosproject.MainActivity;
-import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
+import com.example.eduvosproject.api.ApiClient;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-
-public class CoursesFragment extends Fragment implements CourseRecyclerViewInterface {
+public class CoursesFragment extends Fragment {
 
     // Create arraylist of items that we are placing in the course item view
-    ArrayList<CourseItemModel> coursesModel = new ArrayList<>();
+    ArrayList<CourseItems> courseItems = new ArrayList<>();
 
-    // Create int array of drawables placed in course item view
-    int [] testImages = {R.drawable.baseline_person_24, R.drawable.baseline_settings_24,
-            R.drawable.ic_home_black_24dp,R.drawable.baseline_person_24,
-            R.drawable.baseline_settings_24, R.drawable.ic_home_black_24dp,
-            R.drawable.ic_home_black_24dp,R.drawable.baseline_person_24,
-            R.drawable.baseline_settings_24, R.drawable.ic_home_black_24dp,
-            R.drawable.baseline_person_24};
+
+    //TODO ADD IMAGES TO DATABASE
 
     public CoursesFragment() {
         //empty constructor
-    }
-
-    private void setUpCourseItemModels(){
-        String[] courseNames = getResources().getStringArray(R.array.courses_name);
-        String[] courseDescription = getResources().getStringArray(R.array.courses_description);
-        for (int i = 0; i<courseNames.length; i++){
-            coursesModel.add(new CourseItemModel(testImages[i],courseNames[i],courseDescription[i]));
-        }
-
     }
 
     @Override
@@ -61,24 +49,54 @@ public class CoursesFragment extends Fragment implements CourseRecyclerViewInter
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText(view.getContext(),"Course",Toast.LENGTH_SHORT).show();
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerviewCourses);
+        // GET method to fetch data.
+        Call <ArrayList<CourseItems>> fetchCourseListCall = ApiClient.getUserService().courseGet();
 
-        setUpCourseItemModels();
+        fetchCourseListCall.enqueue(new Callback <ArrayList<CourseItems>>() {
+            @Override
+            public void onResponse(Call <ArrayList<CourseItems>> call, Response <ArrayList<CourseItems>> response) {
 
-        CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(view.getContext(),
-                coursesModel, this);
+                for (int i = 0; i<response.body().size(); i++) {
+                    courseItems.add(new CourseItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).description));
+                }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
+                //Creates recyclerView object
+                RecyclerView recyclerView = view.findViewById(R.id.recyclerviewCourses);
+
+                //Create courseInterface object
+                CourseRecyclerViewInterface courseInterface = new CourseRecyclerViewInterface() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Log.d("log3", String.format("%s", position));
+                    }
+                };
+
+                //Create an instance of the adapter
+                CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(view.getContext(),
+                        courseItems, courseInterface);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call <ArrayList<CourseItems>> call, Throwable t) {
+                Toast.makeText(getContext(),"Something went wrong. Try reloading",Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
-    @Override
-    public void onItemClick(int position) {
-        //Code that executes whenever a user clicks on an item.
-        Intent intent = new Intent(getActivity(), CourseViewActivity.class);
-        startActivity(intent);
+    // TODO this method should open up a new fragment displaying the corresponding course data
+//    @Override
+//    public void onItemClick(int position) {
+//        //Code that executes whenever a user clicks on an item.
+//        Intent intent = new Intent(getActivity(), CourseViewActivity.class);
+//        startActivity(intent);
+//
+//    }
 
-    }
+
 }

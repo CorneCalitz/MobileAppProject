@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eduvosproject.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecyclerViewAdapter.CourseViewHolder> {
 
     private final CourseRecyclerViewInterface courseRecyclerViewInterface;
 
     Context context;
-    ArrayList<CourseItemModel> courseItemModels;
+    ArrayList<CourseItems> courseItemModels;
 
-    public CourseRecyclerViewAdapter(Context context, ArrayList<CourseItemModel> courseItemModels, CourseRecyclerViewInterface courseRecyclerViewInterface){
+    public CourseRecyclerViewAdapter(Context context, ArrayList<CourseItems> courseItemModels, CourseRecyclerViewInterface courseRecyclerViewInterface){
         // Constructor for our adapter
         this.context = context;
         this.courseItemModels = courseItemModels;
@@ -44,7 +45,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
 
         holder.tvName.setText(courseItemModels.get(position).getName());
         holder.tvDescription.setText(courseItemModels.get(position).getDescription());
-        holder.ivCourse.setImageResource(courseItemModels.get(position).getImage());
+        holder.ivCourse.setImageResource(R.drawable.ic_dashboard_black_24dp);
 
     }
 

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.eduvosproject.R;
-import com.example.eduvosproject.datamodel.LoginResponse;
+import com.example.eduvosproject.LoginResponse;
 import com.google.gson.Gson;
 
 public class HomeFragment extends Fragment {
