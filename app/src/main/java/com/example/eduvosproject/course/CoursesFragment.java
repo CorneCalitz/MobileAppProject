@@ -60,7 +60,7 @@ public class CoursesFragment extends Fragment {
             public void onResponse(Call <ArrayList<CourseItems>> call, Response <ArrayList<CourseItems>> response) {
 
                 for (int i = 0; i<response.body().size(); i++) {
-                    courseItems.add(new CourseItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).description));
+                    courseItems.add(new CourseItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).description, response.body().get(i).content));
                 }
 
                 //Creates recyclerView object

@@ -5,12 +5,14 @@ import java.util.List;
 public class CourseItems {
     // A simple model used to store course view data
 
-   String id, name, description;
+   String id, name, description, content;
 
-    public CourseItems(String id, String name, String description) {
+    public CourseItems(String id, String name, String description, String content) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.content = content;
+
     }
 
     public String getId() {
@@ -36,5 +38,9 @@ public class CourseItems {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getContent() {return content;}
+
+    public void setContent(String content) {this.content = content;}
 }
 

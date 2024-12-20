@@ -36,7 +36,7 @@ public class CourseViewActivity extends AppCompatActivity {
         String contentString;
         contentString = getIntent().getStringExtra("jsonString");
         courseItem = new Gson().fromJson(contentString, CourseItems.class);
-        tvContent.setText(courseItem.getDescription());
+        tvContent.setText(courseItem.getContent());
 
 
 
