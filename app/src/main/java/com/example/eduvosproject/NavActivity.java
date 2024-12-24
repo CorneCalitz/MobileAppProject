@@ -15,7 +15,6 @@ import com.example.eduvosproject.profile.ProfileFragment;
 import com.example.eduvosproject.quiz.QuizFragment;
 import com.google.gson.Gson;
 
-
 public class NavActivity extends AppCompatActivity {
 
     ActivityNavBinding binding;
@@ -32,51 +31,50 @@ public class NavActivity extends AppCompatActivity {
         loginJson = getIntent().getStringExtra("jsonString");
         loginResponse = new Gson().fromJson(loginJson, LoginResponse.class);
 
-        // Sets the first fragment that the user views.
-        replaceFragment(new HomeFragment(),loginJson);
+        // Handle navigation intent (if "navigateTo" is provided)
+        String navigateTo = getIntent().getStringExtra("navigateTo");
+        if (navigateTo != null && navigateTo.equals("quiz")) {
+            replaceFragment(new QuizFragment(), loginJson);
+        } else {
+            // Default fragment (e.g., HomeFragment)
+            replaceFragment(new HomeFragment(), loginJson);
+        }
 
-        // Switches fragment to one that the user clicks on.
+        // Switch fragments based on bottom navigation clicks.
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_home) {
-                replaceFragment(new HomeFragment(),loginJson);
-            }
-            else if (item.getItemId() == R.id.nav_courses) {
-                replaceFragment(new CoursesFragment(),loginJson);
-            }
-            else if (item.getItemId() == R.id.nav_quiz) {
-                replaceFragment(new QuizFragment(),loginJson);
-            }
-            else if (item.getItemId() == R.id.nav_profile) {
+                replaceFragment(new HomeFragment(), loginJson);
+            } else if (item.getItemId() == R.id.nav_courses) {
+                replaceFragment(new CoursesFragment(), loginJson);
+            } else if (item.getItemId() == R.id.nav_quiz) {
+                replaceFragment(new QuizFragment(), loginJson);
+            } else if (item.getItemId() == R.id.nav_profile) {
                 replaceFragment(new ProfileFragment(), loginJson);
             }
             return true;
         });
     }
 
-
     // Method used to replace the current on-screen fragment to a new fragment and pass data into it.
-    public void replaceFragment(Fragment fragment, String string){
+    public void replaceFragment(Fragment fragment, String string) {
         Bundle args = new Bundle();
         args.putString("jsonString", string);
         fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
         fragmentTransaction.commit();
     }
 
-    //Store data if the user closes the app.
+    // Store data if the user closes the app.
     @Override
     protected void onPause() {
         super.onPause();
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", 0);
         SharedPreferences.Editor edt = sharedPreferences.edit();
 
-        // write all the login data into sharedpref edit.
+        // Write all the login data into sharedpref edit.
         edt.putString("loginData", loginJson);
         edt.apply();
     }
-
-
-
 }
