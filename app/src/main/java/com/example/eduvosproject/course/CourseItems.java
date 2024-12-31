@@ -3,7 +3,7 @@ package com.example.eduvosproject.course;
 import java.util.List;
 
 public class CourseItems {
-    // A simple model used to store course view data
+    // A simple model used to store course recycle view data
 
    String id, name, description, content;
 

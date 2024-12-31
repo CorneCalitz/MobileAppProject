@@ -2,6 +2,7 @@ package com.example.eduvosproject.api;
 
 import com.example.eduvosproject.course.CourseItems;
 import com.example.eduvosproject.LoginResponse;
+import com.example.eduvosproject.quiz.QuizItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,4 +25,9 @@ public interface UserService {
     // Course items fetch method
     @GET("/app_php/fetch_course_item.php/")
     Call<ArrayList<CourseItems>> courseGet();
+
+    // Quiz items fetch method
+    @FormUrlEncoded
+    @POST("/app_php/fetch_quiz_item.php/")
+    Call<ArrayList<QuizItems>> quizPost(@Field("profile_id") int id);
 }

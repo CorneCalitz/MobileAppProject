@@ -11,29 +11,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eduvosproject.R;
 import java.util.ArrayList;
 
-public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerViewAdapter.ViewHolder> {
+public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerViewAdapter.QuizViewHolder> {
 
-    private Context context;
-    private ArrayList<QuizItemModel> quizItemModels;
+    private final QuizRecyclerViewInterface quizRecyclerViewInterface;
 
-    public QuizRecyclerViewAdapter(Context context, ArrayList<QuizItemModel> quizItemModels) {
+    Context context;
+    ArrayList<QuizItems> quizItemModels;
+
+
+    public QuizRecyclerViewAdapter(Context context, ArrayList<QuizItems> quizItemModels, QuizRecyclerViewInterface quizRecyclerViewInterface) {
         this.context = context;
         this.quizItemModels = quizItemModels;
+        this.quizRecyclerViewInterface = quizRecyclerViewInterface;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.quiz_item_view, parent, false);
-        return new ViewHolder(view);
+    public QuizRecyclerViewAdapter.QuizViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Inflate the layout, giving a look to our rows.
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.quiz_item_view, parent, false);
+        return new QuizRecyclerViewAdapter.QuizViewHolder(view, quizRecyclerViewInterface);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        QuizItemModel quizItemModel = quizItemModels.get(position);
-        holder.quizImage.setImageResource(quizItemModel.getImage());
-        holder.quizTitle.setText(quizItemModel.getName());
-        holder.quizDescription.setText(quizItemModel.getDescription());
+    public void onBindViewHolder(@NonNull QuizRecyclerViewAdapter.QuizViewHolder holder, int position) {
+
+        holder.quizTitle.setText(quizItemModels.get(position).getName());
+        holder.quizScore.setText(quizItemModels.get(position).getScore());
     }
 
     @Override
@@ -41,16 +46,32 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
         return quizItemModels.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class QuizViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView quizImage;
-        TextView quizTitle, quizDescription;
+        TextView quizTitle, quizScore;
 
-        public ViewHolder(@NonNull View itemView) {
+        public QuizViewHolder(@NonNull View itemView, QuizRecyclerViewInterface quizRecyclerViewInterface) {
             super(itemView);
-            quizImage = itemView.findViewById(R.id.quiz_icon);
+
             quizTitle = itemView.findViewById(R.id.quiz_title);
-            quizDescription = itemView.findViewById(R.id.quiz_description);
+            quizScore = itemView.findViewById(R.id.quiz_description);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Decides which position of the recycleView you clicked on so that it can open
+                    // corresponding view.
+                    if (quizRecyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION){
+                            quizRecyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+
+
         }
     }
 }

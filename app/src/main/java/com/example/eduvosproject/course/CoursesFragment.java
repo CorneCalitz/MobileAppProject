@@ -97,14 +97,6 @@ public class CoursesFragment extends Fragment {
 
     }
 
-    // TODO this method should open up a new fragment displaying the corresponding course data
-//    @Override
-//    public void onItemClick(int position) {
-//        //Code that executes whenever a user clicks on an item.
-//        Intent intent = new Intent(getActivity(), CourseViewActivity.class);
-//        startActivity(intent);
-//
-//    }
 
 
 }
