@@ -36,17 +36,13 @@ android {
     sourceSets {
         getByName("main") {
             res {
-                srcDirs("src\\main\\res"
-                )
+                srcDirs("src\\main\\res")
             }
         }
     }
 }
 
-
-
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -61,7 +57,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation (libs.logging.interceptor)
+    implementation(libs.logging.interceptor)
 
-    implementation(kotlin("script-runtime"))
+    // Remove the unnecessary dependency
+    // implementation(kotlin("script-runtime"))
 }

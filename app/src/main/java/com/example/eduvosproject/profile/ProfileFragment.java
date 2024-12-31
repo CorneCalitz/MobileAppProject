@@ -24,30 +24,24 @@ import com.google.gson.Gson;
 
 public class ProfileFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "jsonString";
-
     LoginResponse loginResponse;
     TextView tvUsername, tvTestsTaken, tvTestsPassed, tvAccountType;
     private String jsonString;
     Button btnLogout;
-
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    Bundle bundle = new Bundle();
 
 
     private void buttonLogoutListener() {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPref",getContext().MODE_PRIVATE);
-                Log.d("Test",sharedPreferences.getString("loginData",""));
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPref", getContext().MODE_PRIVATE);
+                Log.d("Test", sharedPreferences.getString("loginData", ""));
                 SharedPreferences.Editor edt = sharedPreferences.edit();
                 edt.putString("loginData", "");
                 edt.apply();
-                Log.d("Test2",sharedPreferences.getString("loginData",""));
+                Log.d("Test2", sharedPreferences.getString("loginData", ""));
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -58,6 +52,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("ProfileFragment", "onViewCreated called");
+        Log.d("ProfileFragment", "jsonString: " + jsonString);
+        Log.d("ProfileFragment", "LoginResponse: " + new Gson().toJson(loginResponse));
 
         tvUsername = view.findViewById(R.id.tvUserName);
         tvTestsTaken = view.findViewById(R.id.tvTestsTaken);
@@ -65,27 +62,32 @@ public class ProfileFragment extends Fragment {
         tvAccountType = view.findViewById(R.id.tvAccountType);
         btnLogout = view.findViewById(R.id.btnLogout);
 
-
         if (getArguments() != null) {
             jsonString = getArguments().getString(ARG_PARAM1);
-            loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
-            tvUsername.setText(loginResponse.user.getName());
+            if (jsonString != null) {
+                loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
+                if (loginResponse != null && loginResponse.user != null && loginResponse.profile != null) {
+                    tvUsername.setText(loginResponse.user.getName());
+                    tvTestsTaken.setText(String.format("Test(s) Taken: %s", loginResponse.profile.getTests_taken()));
+                    tvTestsPassed.setText(String.format("Test(s) Passed: %s", loginResponse.profile.getTests_passed()));
+                    tvAccountType.setText("Waiter");
+                } else {
+                    Log.e("ProfileFragment", "Invalid loginResponse or profile data");
+                    Toast.makeText(getContext(), "Error loading profile", Toast.LENGTH_SHORT).show();
+                }
 
 
-            tvTestsTaken.setText(String.format("Test(s) Taken: %s", loginResponse.profile.getTests_taken().toString()));
-            tvTestsPassed.setText(String.format("Test(s) Passed: %s", loginResponse.profile.getTests_passed().toString()));
-
-
-            tvAccountType.setText("Waiter");
+            } else {
+                Log.e("ProfileFragment", "jsonString is null");
+            }
         }
 
-        buttonLogoutListener();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 }
