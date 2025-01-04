@@ -58,7 +58,6 @@ public class NavActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString("jsonString", jsonString);
         fragment.setArguments(args);
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, fragment);
         transaction.addToBackStack(null);  // Optional: if you want back navigation

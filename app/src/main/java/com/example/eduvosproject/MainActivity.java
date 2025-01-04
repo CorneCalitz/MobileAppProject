@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     Log.d("LoginResponse", "Full Response: " + new Gson().toJson(loginResponse));
 
-                    if (loginResponse != null && loginResponse.status.equals("success")) {
+                    if ((loginResponse != null) && (loginResponse.result.getError().equals(false))) {
                         tvLoginMessage.setText("Login successful");
 
                         // Save login data in SharedPreferences

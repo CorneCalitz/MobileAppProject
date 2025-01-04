@@ -7,10 +7,12 @@ require_once "helper_class.php";
 $response = array();
 $result = new Result();
 
+$jsonData = file_get_contents('php://input');
+$data = json_decode($jsonData, true);
 
-if (!empty($_POST["name"]) && !empty($_POST["password"])) {
-	$name = $_POST["name"];
-	$password = $_POST["password"];
+if ($data !== NULL) {
+	$name = $data["name"];
+	$password = $data["password"];
 
 	//Get password to verify
 	$stmt = $conn->prepare("SELECT password FROM tbl_user WHERE name=?");

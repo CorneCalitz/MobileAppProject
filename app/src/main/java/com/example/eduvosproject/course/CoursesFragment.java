@@ -30,19 +30,32 @@ import retrofit2.Response;
 
 public class CoursesFragment extends Fragment {
 
+    private static final String ARG_PARAM = "jsonString";
+
+    private RecyclerView recyclerViewCourse;
+    private CourseRecyclerViewAdapter courseRecyclerViewAdapter;
+
+    private String jsonString;
+    LoginResponse loginResponse;
+
     // Create arraylist of items that we are placing in the course item view
     ArrayList<CourseItems> courseItems = new ArrayList<>();
 
-
-    //TODO ADD IMAGES TO DATABASE
 
     public CoursesFragment() {
         //empty constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        //Inflate layout for this fragment
+        return inflater.inflate(R.layout.fragment_courses, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
             String jsonString = getArguments().getString("jsonString");
             Log.d("CoursesFragment", "Received JSON: " + jsonString);
@@ -51,60 +64,53 @@ public class CoursesFragment extends Fragment {
                 LoginResponse loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
                 Log.d("CoursesFragment", "Parsed login response: " + new Gson().toJson(loginResponse));
             }
-        }
-    }
 
+            // GET method to fetch data.
+            Call<ArrayList<CourseItems>> fetchCourseListCall = ApiClient.getUserService().courseGet();
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+            fetchCourseListCall.enqueue(new Callback<ArrayList<CourseItems>>() {
+                @Override
+                public void onResponse(Call<ArrayList<CourseItems>> call, Response<ArrayList<CourseItems>> response) {
 
+                    for (int i = 0; i < response.body().size(); i++) {
+                        courseItems.add(new CourseItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).description, response.body().get(i).content));
+                    }
 
-        // GET method to fetch data.
-        Call <ArrayList<CourseItems>> fetchCourseListCall = ApiClient.getUserService().courseGet();
+                    //Creates recyclerView object
+                    RecyclerView recyclerView = view.findViewById(R.id.recyclerviewCourses);
 
-        fetchCourseListCall.enqueue(new Callback <ArrayList<CourseItems>>() {
-            @Override
-            public void onResponse(Call <ArrayList<CourseItems>> call, Response <ArrayList<CourseItems>> response) {
+                    //Create courseInterface object
+                    CourseRecyclerViewInterface courseInterface = new CourseRecyclerViewInterface() {
+                        @Override
+                        public void onItemClick(int position) {
 
-                for (int i = 0; i<response.body().size(); i++) {
-                    courseItems.add(new CourseItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).description, response.body().get(i).content));
+                            String courseItemString;
+                            courseItemString = new Gson().toJson(courseItems.get(position));
+
+                            Intent intent = new Intent(getActivity(), CourseViewActivity.class).putExtra("jsonString", courseItemString);
+                            startActivity(intent);
+
+                        }
+                    };
+
+                    //Create an instance of the adapter
+                    CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(view.getContext(),
+                            courseItems, courseInterface);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    recyclerView.setAdapter(adapter);
+
                 }
 
-                //Creates recyclerView object
-                RecyclerView recyclerView = view.findViewById(R.id.recyclerviewCourses);
+                @Override
+                public void onFailure(Call<ArrayList<CourseItems>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Something went wrong. Try reloading", Toast.LENGTH_LONG).show();
+                }
+            });
 
-                //Create courseInterface object
-                CourseRecyclerViewInterface courseInterface = new CourseRecyclerViewInterface() {
-                    @Override
-                    public void onItemClick(int position) {
-
-                        String courseItemString;
-                        courseItemString = new Gson().toJson(courseItems.get(position));
-
-                        Intent intent = new Intent(getActivity(), CourseViewActivity.class).putExtra("jsonString", courseItemString);
-                        startActivity(intent);
-
-                    }
-                };
-
-                //Create an instance of the adapter
-                CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(view.getContext(),
-                        courseItems, courseInterface);
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                recyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onFailure(Call <ArrayList<CourseItems>> call, Throwable t) {
-                Toast.makeText(getContext(),"Something went wrong. Try reloading",Toast.LENGTH_LONG).show();
-            }
-        });
-
+        }
     }
-
-
-
 }
+
+
+

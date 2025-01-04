@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Set up the request
         Request request = new Request.Builder()
-                .url("http://192.168.0.180/") // Ensure this matches your server setup
+                .url("http://192.168.125.94/") // Ensure this matches your server setup
                 .post(requestBody)
                 .addHeader("Content-Type", "application/json")
                 .build();

@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 public class ApiClient {
 
     // Replace with your actual server IP address if running on a physical device
-    private static final String BASE_URL = "http://192.168.0.180/"; // Use 10.0.2.2 for emulator or your machine IP for physical device
+    private static final String BASE_URL = "http://192.168.125.94/"; // Use 10.0.2.2 for emulator or your machine IP for physical device
     private static Retrofit retrofit;
 
     // Method to get Retrofit client
