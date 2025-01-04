@@ -41,11 +41,19 @@ public class CoursesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return  inflater.inflate(R.layout.fragment_courses, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String jsonString = getArguments().getString("jsonString");
+            Log.d("CoursesFragment", "Received JSON: " + jsonString);
+
+            if (jsonString != null) {
+                LoginResponse loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
+                Log.d("CoursesFragment", "Parsed login response: " + new Gson().toJson(loginResponse));
+            }
+        }
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

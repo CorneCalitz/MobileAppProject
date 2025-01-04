@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,11 +19,18 @@
             android:name=".quiz.quiz_attempt.QuizAttemptActivity"
             android:exported="false" />
         <activity
+            android:name=".course.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".course.CourseViewActivity"
             android:exported="false" />
         <activity
             android:name=".NavActivity"
             android:exported="true" />
+        <activity android:name=".LoginActivity">
+
+            <!-- Add any specific intent filter or properties if needed -->
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

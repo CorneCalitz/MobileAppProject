@@ -35,11 +35,19 @@ public class HomeFragment extends Fragment {
 
         if (getArguments() != null) {
             jsonString = getArguments().getString(ARG_PARAM1);
-            loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
-            tvHomeMessage.setText(String.format("Welcome %s", loginResponse.user.getName()));
-        }
 
+            // Parse the JSON string into LoginResponse object
+            loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
+
+            // Ensure that loginResponse is not null and the user is not null
+            if (loginResponse != null && loginResponse.user != null) {
+                tvHomeMessage.setText(String.format("Welcome %s", loginResponse.user.getName()));
+            } else {
+                tvHomeMessage.setText("Welcome John");
+            }
+        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

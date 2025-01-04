@@ -4,36 +4,45 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+// ApiClient should look like this
 public class ApiClient {
-//Creates instances of the retrofit client and interface used send requests.
 
-    private static Retrofit getRetrofit(){
-        // Creates and returns an HTTP client. {Retrofit}
+    // Replace with your actual server IP address if running on a physical device
+    private static final String BASE_URL = "http://192.168.0.180/"; // Use 10.0.2.2 for emulator or your machine IP for physical device
+    private static Retrofit retrofit;
 
-        // OkHttp is used to log requests and response data from the server.
-        // TODO: Either redact sensitive info or outright remove OkHttp before final release
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+    // Method to get Retrofit client
+    public static Retrofit getClient() {
+        if (retrofit == null) {
+            // Set up logging interceptor for HTTP requests and responses
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY); // Log all request and response data
 
+            // Create an OkHttpClient with the logging interceptor
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.0.180/")  //Server URL, trailing "/" is required
-                .client(okHttpClient)
-                .build();
+            // Create a Gson instance with lenient parsing enabled for handling malformed JSON gracefully
+            Gson gson = new GsonBuilder()
+                    .setLenient() // Enable lenient parsing
+                    .create();
 
+                        // Build Retrofit instance
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client) // Use OkHttpClient with logging
+                    .addConverterFactory(GsonConverterFactory.create(gson)) // Use Gson converter with lenient parsing
+                    .build();
+        }
         return retrofit;
     }
 
-
-    public static UserService getUserService(){
-        //Returns an interface instance
-
-        UserService userService = getRetrofit().create(UserService.class);
-
-        return userService;
+    // Method to get the UserService interface to interact with the backend API
+    public static UserService getUserService() {
+        return getClient().create(UserService.class);
     }
-
 }

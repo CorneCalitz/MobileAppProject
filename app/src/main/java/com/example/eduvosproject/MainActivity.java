@@ -1,5 +1,6 @@
 package com.example.eduvosproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +18,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eduvosproject.api.ApiClient;
+import com.example.eduvosproject.NavActivity;
+
 import com.google.gson.Gson;
+
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     EditText edtName, edtPassword;
     TextView tvLoginMessage;
-    String name, password, loginDataString;
+    String username, password, loginDataString;
 
 
     @Override
@@ -59,78 +64,70 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                name = edtName.getText().toString();
+                username = edtName.getText().toString();
                 password = edtPassword.getText().toString();
 
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
-                    tvLoginMessage.setText("Name and password required.");
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+                    tvLoginMessage.setText("Name and Pin required.");
                 } else {
                     //proceed to login
                     attemptLogin();
                 }
             }
-        });
-    }
+        });}
+
+
 
     public void attemptLogin() {
-        // Sends HTTP request and based on response handles the login attempt.
+        //the LoginRequest object with name and password
+        LoginRequest loginRequest = new LoginRequest(username, password);
 
-        // Creates a retrofit style call to the server
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().loginPost(name, password);
+        // Log the LoginRequest object to verify its contents
+        Log.d("LoginRequest", new Gson().toJson(loginRequest));
 
+        // Call the loginPost method with the LoginRequest object
+        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().loginPost(loginRequest);
 
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
-                if (response.isSuccessful()) {
-                    //Populate login response model with incoming data.
+                if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
+                    Log.d("LoginResponse", "Full Response: " + new Gson().toJson(loginResponse));
 
-                    assert loginResponse != null;
-                    if (!loginResponse.result.getError()) {
+                    if (loginResponse != null && loginResponse.status.equals("success")) {
                         tvLoginMessage.setText("Login successful");
 
-                        //Convert loginResponse object into a json string, this will be passed with our intent
-                        loginDataString = new Gson().toJson(loginResponse);
+                        // Save login data in SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("loginData", new Gson().toJson(loginResponse));
+                        editor.apply();
 
-                        //Gives a slight delay to login.
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginDataString));
-                                finish();
-                            }
-                        }, 700);
+                        // Navigate to next activity
+                        Intent intent = new Intent(MainActivity.this, NavActivity.class);
+                        intent.putExtra("jsonString", new Gson().toJson(loginResponse)); // Passing login data
+                        startActivity(intent);
+                        finish();
                     } else {
-                        tvLoginMessage.setText(loginResponse.result.getMessage());
+                        tvLoginMessage.setText(loginResponse != null ? loginResponse.message : "Login failed");
+                        Log.e("LoginError", "Error: " + (loginResponse != null ? loginResponse.message : "Unknown error"));
                     }
                 } else {
-                    tvLoginMessage.setText("Response timed out");
+                    Log.e("LoginError", "Response error: " + response.message());
+                    Log.e("LoginError", "Raw response body: " + response.errorBody());
+                    tvLoginMessage.setText("Response error: " + response.message());
                 }
             }
 
+
+
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                tvLoginMessage.setText("Something went wrong");
+                Log.e("LoginError", "Failure: " + t.getMessage(), t);
+                tvLoginMessage.setText("Something went wrong: " + t.getMessage());
             }
         });
-
     }
-
-    // This will run when the app opens again.
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        // Fetching the stored data from the SharedPreference
-//        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", 0);
-//        Log.d("testLogin", sharedPreferences.getString("loginData", ""));
-//        //Overrides the login attempt if the loginData exists
-//        if (sharedPreferences.contains("loginData")) {
-//            String loginString  = sharedPreferences.getString("loginData", "");
-//            startActivity(new Intent(MainActivity.this, NavActivity.class).putExtra("jsonString", loginString));
-//            finish();
-//        }
-//    }
-
 }
+
