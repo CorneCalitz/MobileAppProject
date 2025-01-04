@@ -83,7 +83,7 @@ public class QuizFragment extends Fragment {
                         String quizItemString;
                         quizItemString = new Gson().toJson(quizItems.get(position));
 
-                        Intent intent = new Intent(getActivity(), QuizAttemptActivity.class).putExtra("jsonString", quizItemString);
+                        Intent intent = new Intent(getActivity(), QuizViewActivity.class).putExtra("jsonString", quizItemString);
                         startActivity(intent);
                     }
                 };
