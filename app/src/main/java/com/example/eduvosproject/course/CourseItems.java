@@ -5,9 +5,10 @@ import java.util.List;
 public class CourseItems {
     // A simple model used to store course recycle view data
 
-   String id, name, description, content;
+   String name, description, content;
+   int id;
 
-    public CourseItems(String id, String name, String description, String content) {
+    public CourseItems(int id, String name, String description, String content) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -15,11 +16,11 @@ public class CourseItems {
 
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,8 +40,12 @@ public class CourseItems {
         this.name = name;
     }
 
-    public String getContent() {return content;}
+    public String getContent() {
+        return content;
+    }
 
-    public void setContent(String content) {this.content = content;}
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
 

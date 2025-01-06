@@ -1,4 +1,4 @@
-package com.example.eduvosproject.course;
+package com.example.eduvosproject.course.courseView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
+import com.example.eduvosproject.course.CourseItems;
 import com.google.gson.Gson;
 
 public class CourseViewActivity extends AppCompatActivity {

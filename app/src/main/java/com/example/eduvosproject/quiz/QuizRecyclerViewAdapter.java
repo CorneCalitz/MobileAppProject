@@ -38,7 +38,6 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
     public void onBindViewHolder(@NonNull QuizRecyclerViewAdapter.QuizViewHolder holder, int position) {
 
         holder.quizTitle.setText(quizItemModels.get(position).getName());
-        holder.quizScore.setText(quizItemModels.get(position).getScore());
     }
 
     @Override
@@ -48,13 +47,13 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder {
 
-        TextView quizTitle, quizScore;
+        TextView quizTitle;
 
         public QuizViewHolder(@NonNull View itemView, QuizRecyclerViewInterface quizRecyclerViewInterface) {
             super(itemView);
 
             quizTitle = itemView.findViewById(R.id.quiz_title);
-            quizScore = itemView.findViewById(R.id.quiz_description);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

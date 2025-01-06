@@ -60,7 +60,9 @@ public class NavActivity extends AppCompatActivity {
         fragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, fragment);
-        transaction.addToBackStack(null);  // Optional: if you want back navigation
+
+        //This breaks our navigation. Can be implemented to work but leave it commented for now.
+        //transaction.addToBackStack(null);  // Optional: if you want back navigation
         transaction.commit();
     }
 

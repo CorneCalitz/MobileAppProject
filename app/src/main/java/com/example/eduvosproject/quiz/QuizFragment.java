@@ -59,9 +59,7 @@ public class QuizFragment extends Fragment {
             loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
         }
 
-        profileId = Integer.parseInt(loginResponse.profile.getProfile_id());
-
-        Call<ArrayList<QuizItems>> fetchQuizListCall = ApiClient.getUserService().quizPost(profileId);
+        Call<ArrayList<QuizItems>> fetchQuizListCall = ApiClient.getUserService().quizItemsGet();
 
         fetchQuizListCall.enqueue(new Callback<ArrayList<QuizItems>>() {
             @Override
@@ -69,7 +67,7 @@ public class QuizFragment extends Fragment {
 
                 //Populates quizItems model
                 for (int i = 0; i<response.body().size(); i++) {
-                    quizItems.add(new QuizItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).score));
+                    quizItems.add(new QuizItems(response.body().get(i).id, response.body().get(i).name, response.body().get(i).getQuizCourseId()));
                 }
 
                 //Creates recyclerView object

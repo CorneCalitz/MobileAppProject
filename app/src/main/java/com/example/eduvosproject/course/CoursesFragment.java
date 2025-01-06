@@ -18,10 +18,10 @@ import android.widget.Toast;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
+import com.example.eduvosproject.course.courseView.CourseViewActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,7 +66,7 @@ public class CoursesFragment extends Fragment {
             }
 
             // GET method to fetch data.
-            Call<ArrayList<CourseItems>> fetchCourseListCall = ApiClient.getUserService().courseGet();
+            Call<ArrayList<CourseItems>> fetchCourseListCall = ApiClient.getUserService().courseItemsGet();
 
             fetchCourseListCall.enqueue(new Callback<ArrayList<CourseItems>>() {
                 @Override

@@ -26,7 +26,7 @@
             android:name=".course.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".course.CourseViewActivity"
+            android:name=".course.courseView.CourseViewActivity"
             android:exported="false" />
         <activity
             android:name=".NavActivity"

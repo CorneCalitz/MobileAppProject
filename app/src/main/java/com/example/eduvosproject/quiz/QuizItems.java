@@ -2,21 +2,21 @@ package com.example.eduvosproject.quiz;
 
 public class QuizItems {
     // Model used to store quiz recycleView data.
+    int id;
+    String name, quizCourseId;
 
-    String id, name, score;
-
-    public QuizItems(String id, String name, String score) {
+    public QuizItems(int id, String name, String quizCourseId) {
         this.id = id;
         this.name = name;
-        this.score = score;
+        this.quizCourseId = quizCourseId;
 
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -28,11 +28,7 @@ public class QuizItems {
         this.name = name;
     }
 
-    public String getScore() {
-        return score;
-    }
+    public String getQuizCourseId() {return quizCourseId;}
 
-    public void setScore(String score) {
-        this.score = score;
-    }
+    public void setQuizCourseId(String quizCourseID) {this.quizCourseId = quizCourseID;}
 }

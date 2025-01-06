@@ -52,10 +52,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("ProfileFragment", "onViewCreated called");
-        Log.d("ProfileFragment", "jsonString: " + jsonString);
-        Log.d("ProfileFragment", "LoginResponse: " + new Gson().toJson(loginResponse));
-
         tvUsername = view.findViewById(R.id.tvUserName);
         tvTestsTaken = view.findViewById(R.id.tvTestsTaken);
         tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
@@ -81,6 +77,9 @@ public class ProfileFragment extends Fragment {
                 Log.e("ProfileFragment", "jsonString is null");
             }
         }
+        Log.d("ProfileFragment", "onViewCreated called");
+        Log.d("ProfileFragment", "jsonString: " + jsonString);
+        Log.d("ProfileFragment", "LoginResponse: " + new Gson().toJson(loginResponse));
 
 
     }
