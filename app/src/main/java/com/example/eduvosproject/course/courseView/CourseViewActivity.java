@@ -2,6 +2,7 @@ package com.example.eduvosproject.course.courseView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,13 +12,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eduvosproject.R;
+import com.example.eduvosproject.api.ApiClient;
 import com.example.eduvosproject.course.CourseItems;
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CourseViewActivity extends AppCompatActivity {
 
-    TextView tvContent;
+    TextView tvContent, tvTitle;
     CourseItems courseItem;
+    String courseDataString;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,13 +41,66 @@ public class CourseViewActivity extends AppCompatActivity {
         });
 
         tvContent = (TextView) findViewById(R.id.tvContent);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        courseDataString = getIntent().getStringExtra("jsonString");
+        courseItem = new Gson().fromJson(courseDataString, CourseItems.class);
 
-        String contentString;
-        contentString = getIntent().getStringExtra("jsonString");
-        courseItem = new Gson().fromJson(contentString, CourseItems.class);
-        tvContent.setText(courseItem.getContent());
+        populatePage();
+
+        //TODO Create onclick for button that navigates to quiz.
 
 
+    }
 
+    public void populatePage() {
+        //Retrieve data to be displayed on page.
+        Call<CourseData> courseDataCall = ApiClient.getUserService().courseDataCall(courseItem);
+
+        courseDataCall.enqueue(new Callback<CourseData>() {
+            @Override
+            public void onResponse(Call<CourseData> call, Response<CourseData> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CourseData courseData = response.body();
+                    Log.d("CourseDataCall", "Full Response: " + new Gson().toJson(courseData));
+
+                    if ((courseData != null) && (courseData.result.getError().equals(false))) {
+                        tvContent.setText(courseData.course_data.getContent());
+                        tvTitle.setText(courseData.course_data.getName());
+
+                        //Checks if the course has a corresponding quiz.
+                        if (Objects.equals(courseData.result.getMessage(), "No quiz.")) {
+                            // TODO: Set the button to hidden or alternative.
+
+
+                            Log.d("CourseDataCall",courseData.result.getMessage());
+                        } else {
+                            //TODO: Set the text for the button that navigates to quiz here.
+
+
+                            Log.d("CourseDataCall",courseData.result.getMessage());
+                        }
+
+                    } else {
+                        tvContent.setText("Unable to load course data. Please try again later.");
+                        tvTitle.setText("");
+                        Log.d("CourseDataCall failed",courseData.result.getMessage());
+                    }
+
+                } else {
+                    tvContent.setText("Unable to load course data. Please try again later.");
+                    tvTitle.setText("");
+                    Log.e("CourseDataCall failed", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CourseData> call, Throwable t) {
+                tvContent.setText("Unable to load course data. Please try again later.");
+                tvTitle.setText("");
+                Log.d("CourseDataCall failed", t.getMessage());
+
+
+            }
+        });
     }
 }

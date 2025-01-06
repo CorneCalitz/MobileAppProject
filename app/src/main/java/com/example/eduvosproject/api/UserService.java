@@ -35,5 +35,5 @@ public interface UserService {
 
     // Fetch course contents and quiz id method
     @POST ("/app_php/fetch_course_data.php/")
-    Call<CourseData> coursePost(@Body CourseItems courseItems);
+    Call<CourseData> courseDataCall(@Body CourseItems courseItems);
 }

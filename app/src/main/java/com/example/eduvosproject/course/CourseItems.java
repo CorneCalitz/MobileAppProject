@@ -5,14 +5,13 @@ import java.util.List;
 public class CourseItems {
     // A simple model used to store course recycle view data
 
-   String name, description, content;
+   String name, description;
    int id;
 
-    public CourseItems(int id, String name, String description, String content) {
+    public CourseItems(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.content = content;
 
     }
 
@@ -40,12 +39,5 @@ public class CourseItems {
         this.name = name;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
 
