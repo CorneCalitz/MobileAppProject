@@ -1,4 +1,4 @@
-package com.example.eduvosproject.course.courseView;
+package com.example.eduvosproject.course.course_view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -83,7 +83,7 @@ public class CourseViewActivity extends AppCompatActivity {
                     } else {
                         tvContent.setText("Unable to load course data. Please try again later.");
                         tvTitle.setText("");
-                        Log.d("CourseDataCall failed",courseData.result.getMessage());
+                        Log.e("CourseDataCall failed",courseData.result.getMessage());
                     }
 
                 } else {
@@ -97,7 +97,7 @@ public class CourseViewActivity extends AppCompatActivity {
             public void onFailure(Call<CourseData> call, Throwable t) {
                 tvContent.setText("Unable to load course data. Please try again later.");
                 tvTitle.setText("");
-                Log.d("CourseDataCall failed", t.getMessage());
+                Log.e("CourseDataCall failed", t.getMessage());
 
 
             }

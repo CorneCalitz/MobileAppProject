@@ -3,8 +3,9 @@ package com.example.eduvosproject.api;
 import com.example.eduvosproject.course.CourseItems;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.LoginRequest;
-import com.example.eduvosproject.course.courseView.CourseData;
+import com.example.eduvosproject.course.course_view.CourseData;
 import com.example.eduvosproject.quiz.QuizItems;
+import com.example.eduvosproject.quiz.quiz_attempt.QuizData;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,12 @@ public interface UserService {
     Call<ArrayList<QuizItems>> quizItemsGet();
 
     // Fetch course contents and quiz id method
-    @POST ("/app_php/fetch_course_data.php/")
+    //TODO @field to be used instead of @body
+    @POST("/app_php/fetch_course_data.php/")
     Call<CourseData> courseDataCall(@Body CourseItems courseItems);
+
+    // Quiz data used for ViewActivity fetch method
+    @FormUrlEncoded
+    @POST("app_php/fetch_quiz_data.php/")
+    Call<QuizData> quizDataCall(@Field("quiz_id") int quizId, @Field("profile_id") int profileId);
 }

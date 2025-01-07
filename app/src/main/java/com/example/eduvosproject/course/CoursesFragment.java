@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
-import com.example.eduvosproject.course.courseView.CourseViewActivity;
+import com.example.eduvosproject.course.course_view.CourseViewActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
-import com.example.eduvosproject.quiz.quiz_attempt.QuizAttemptActivity;
+import com.example.eduvosproject.quiz.quiz_attempt.QuizViewActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -32,9 +34,8 @@ public class QuizFragment extends Fragment {
     private RecyclerView recyclerViewQuiz;
     private QuizRecyclerViewAdapter quizRecyclerViewAdapter;
 
-    private String jsonString;
+    public String loginResponseString;
     LoginResponse loginResponse;
-    int profileId;
 
     //Create arraylist of items that we are placing in the quiz item view.
     ArrayList<QuizItems> quizItems = new ArrayList<>();
@@ -55,9 +56,10 @@ public class QuizFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
-            jsonString = getArguments().getString(ARG_PARAM1);
-            loginResponse = new Gson().fromJson(jsonString, LoginResponse.class);
+            loginResponseString = getArguments().getString("jsonString");
+            loginResponse = new Gson().fromJson(loginResponseString, LoginResponse.class);
         }
+
 
         Call<ArrayList<QuizItems>> fetchQuizListCall = ApiClient.getUserService().quizItemsGet();
 
@@ -81,7 +83,12 @@ public class QuizFragment extends Fragment {
                         String quizItemString;
                         quizItemString = new Gson().toJson(quizItems.get(position));
 
-                        Intent intent = new Intent(getActivity(), QuizViewActivity.class).putExtra("jsonString", quizItemString);
+                        Intent intent = new Intent(getActivity(), QuizViewActivity.class);
+
+                        // Pass multiple strings through the intent.
+                        intent.putExtra("loginResponse", loginResponseString);
+                        intent.putExtra("quizItem", quizItemString);
+
                         startActivity(intent);
                     }
                 };

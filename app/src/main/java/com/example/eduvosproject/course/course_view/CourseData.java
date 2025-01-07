@@ -1,4 +1,4 @@
-package com.example.eduvosproject.course.courseView;
+package com.example.eduvosproject.course.course_view;
 
 public class CourseData {
     //Model used for data present in CourseViewActivity.
