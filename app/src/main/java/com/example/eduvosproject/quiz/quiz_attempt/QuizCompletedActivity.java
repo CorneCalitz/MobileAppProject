@@ -74,7 +74,7 @@ public class QuizCompletedActivity extends AppCompatActivity {
         Log.d("question",  quizQuestions.get(0).getQuestion());
 
 
-        numCorrect = 1;
+        numCorrect = 4;
 
         //Consider putting this in a separate function.
         //TODO need to sort hashmap and arraylist for good measure before comparing answer values

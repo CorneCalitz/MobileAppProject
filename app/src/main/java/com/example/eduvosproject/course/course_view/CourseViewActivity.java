@@ -3,10 +3,12 @@ package com.example.eduvosproject.course.course_view;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -41,11 +43,21 @@ public class CourseViewActivity extends AppCompatActivity {
         });
 
         tvContent = (TextView) findViewById(R.id.tvContent);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        //tvTitle = (TextView) findViewById(R.id.tvTitle);
         courseDataString = getIntent().getStringExtra("jsonString");
         courseItem = new Gson().fromJson(courseDataString, CourseItems.class);
 
+        // Setup Toolbar as ActionBar with Back Button and "Back" title
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back button
+            getSupportActionBar().setTitle("Back"); // Set "Back" as the toolbar title
+        }
+
         populatePage();
+
+
 
         //TODO Create onclick for button that navigates to quiz.
 
@@ -65,7 +77,9 @@ public class CourseViewActivity extends AppCompatActivity {
 
                     if ((courseData != null) && (courseData.result.getError().equals(false))) {
                         tvContent.setText(courseData.course_data.getContent());
-                        tvTitle.setText(courseData.course_data.getName());
+                        //tvTitle.setText(courseData.course_data.getName());
+
+
 
                         //Checks if the course has a corresponding quiz.
                         if (Objects.equals(courseData.result.getMessage(), "No quiz.")) {
@@ -102,5 +116,14 @@ public class CourseViewActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
