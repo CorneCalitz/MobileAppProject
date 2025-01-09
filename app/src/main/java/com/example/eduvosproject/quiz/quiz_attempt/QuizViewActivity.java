@@ -100,7 +100,9 @@ public class QuizViewActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 String quizDataString = new Gson().toJson(quizData);
-                                Intent intent = new Intent(QuizViewActivity.this, QuizAttemptActivity.class).putExtra("quizData", quizDataString);
+                                Intent intent = new Intent(QuizViewActivity.this, QuizAttemptActivity.class);
+                                intent.putExtra("quizData", quizDataString);
+                                intent.putExtra("loginResponse", loginResponseString);
                                 startActivity(intent);
                                 finish();
                             }

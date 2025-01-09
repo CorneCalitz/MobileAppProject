@@ -39,8 +39,9 @@ public class QuizAttemptActivity extends AppCompatActivity {
 
     QuizData quizData;
     String quizDataString;
+    String loginResponseString;
 
-    Map<Integer, Integer> responseDict = new HashMap<Integer, Integer>();
+    HashMap<Integer, Integer> responseDict = new HashMap<Integer, Integer>();
 
     ArrayList<QuizQuestions> quizQuestions = new ArrayList<>();
     ArrayList<QuizChoices> quizChoices = new ArrayList<>();
@@ -75,6 +76,8 @@ public class QuizAttemptActivity extends AppCompatActivity {
     quizDataString = getIntent().getStringExtra("quizData");
     quizData = new Gson().fromJson(quizDataString, QuizData.class);
 
+    loginResponseString = getIntent().getStringExtra("loginResponse");
+
     btnNextQuestion.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -100,8 +103,16 @@ public class QuizAttemptActivity extends AppCompatActivity {
                 quizAttempt();
             } else {
                 //go to next activity.
-                Log.d("next act", "Lets go to marioland");
-                Intent intent = new Intent(QuizAttemptActivity.this, NavActivity.class);
+                Log.d("Next act", "Wish I was at DisneyLand now.");
+
+                String quizQuestionsString = new Gson().toJson(quizQuestions);
+
+                Intent intent = new Intent(QuizAttemptActivity.this, QuizCompletedActivity.class);
+                intent.putExtra("quizData",quizDataString);
+                intent.putExtra("loginResponse", loginResponseString);
+                intent.putExtra("quizResponses", responseDict.toString());
+                intent.putExtra("quizQuestions", quizQuestionsString);
+
                 startActivity(intent);
                 finish();
             }
@@ -232,7 +243,7 @@ public class QuizAttemptActivity extends AppCompatActivity {
                 rb1.setId(quizChoices.get(0).getId());
                 rb2.setId(quizChoices.get(1).getId());
                 rb3.setId(quizChoices.get(2).getId());
-                rb3.setId(quizChoices.get(3).getId());
+                rb4.setId(quizChoices.get(3).getId());
         }
 
     }
