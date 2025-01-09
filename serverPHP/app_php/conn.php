@@ -1,9 +1,10 @@
 <?php
 
-$servername = "localhost";
+$servername = "localhost:3306";
 $dbusername = "root";
 $dbpassword = "";
 $db = "trainingappschema";
+;
 
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $db);
 

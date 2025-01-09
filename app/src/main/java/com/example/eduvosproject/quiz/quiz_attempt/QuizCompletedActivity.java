@@ -18,6 +18,7 @@ import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.MainActivity;
 import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
+import com.example.eduvosproject.api.ApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,6 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QuizCompletedActivity extends AppCompatActivity {
 
@@ -101,14 +106,10 @@ public class QuizCompletedActivity extends AppCompatActivity {
             passed = false;;
         }
 
-
         setGUI();
-
         updateQuizData();
-
         updateProfile();
 
-        //Button on click
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,9 +144,45 @@ public class QuizCompletedActivity extends AppCompatActivity {
 
     public void updateQuizData() {
         // Update data relating to the quiz and save in db.
+        quizData.score.setScore(numCorrect);
+        Call<QuizData> quizDataPost = ApiClient.getUserService().quizDataPost(quizData);
+        quizDataPost.enqueue(new Callback<QuizData>() {
+            @Override
+            public void onResponse(Call<QuizData> call, Response<QuizData> response) {
+                Log.d("QuizDataUpdate", response.message());
+            }
+
+            @Override
+            public void onFailure(Call<QuizData> call, Throwable t) {
+                Log.e("QuizDataUpdate", t.getMessage());
+            }
+        });
+
     }
 
     public void updateProfile(){
         // Update profile data and save in db.
+        int takenCount = loginResponse.profile.getTests_taken();
+        int passedCount = loginResponse.profile.getTests_passed();
+
+        loginResponse.profile.setTests_taken(takenCount + 1);
+
+        if (passed) {
+            loginResponse.profile.setTests_passed(passedCount + 1);
+        }
+
+        Call<LoginResponse> profilePost = ApiClient.getUserService().profilePost(loginResponse);
+        profilePost.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                Log.d("profileUpdate", response.message());
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("profileUpdate", t.getMessage());
+            }
+        });
+
     }
 }

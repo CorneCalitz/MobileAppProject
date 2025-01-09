@@ -34,7 +34,7 @@ public class QuizData {
     }
 
     public static class ScoreClass {
-        private int questionAmount, score;
+        private int questionAmount, score, profile;
 
         public int getScore() {
             return score;
@@ -46,6 +46,10 @@ public class QuizData {
 
         public int getQuestionAmount() {
             return questionAmount;
+        }
+
+        public int getProfile() {
+            return profile;
         }
     }
 

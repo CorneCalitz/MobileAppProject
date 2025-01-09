@@ -66,7 +66,6 @@ if ($data !== NULL) {
 		$result->setMessage("Invalid credentials");
 	}
 } else { 
-	//redundant
 	$result->setErrorStatus(true);
 	$result->setMessage("Missing parameters");
 }

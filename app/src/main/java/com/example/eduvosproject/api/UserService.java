@@ -56,5 +56,11 @@ public interface UserService {
     @POST("app_php/fetch_quiz_choices.php/")
     Call<ArrayList<QuizChoices>> choicesDataCall(@Field("id") int choiceId);
 
+    //Update quiz data.
+    @POST("app_php/update_quiz_data.php/")
+    Call<QuizData> quizDataPost(@Body QuizData quizData);
 
+    //Update profile data.
+    @POST("app_php/update_profile.php/")
+    Call<LoginResponse> profilePost(@Body LoginResponse loginResponse);
 }
