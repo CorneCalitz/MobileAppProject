@@ -1,5 +1,6 @@
 package com.example.eduvosproject.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -81,6 +82,8 @@ public class ProfileFragment extends Fragment {
         Log.d("ProfileFragment", "jsonString: " + jsonString);
         Log.d("ProfileFragment", "LoginResponse: " + new Gson().toJson(loginResponse));
 
+        setupLogoutButtonListener();
+
 
     }
 
@@ -89,4 +92,29 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
+    // Logout button listener
+    private void setupLogoutButtonListener() {
+        btnLogout.setOnClickListener(view -> {
+            // Clear shared preferences
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
+            sharedPreferences.edit().clear().apply();
+
+            Log.d("ProfileFragment", "User logged out");
+
+            // Redirect to login activity
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+            // Finish the current activity
+            requireActivity().finish();
+        });
+    }
+
+    // Show error toast
+    private void showErrorToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }
+

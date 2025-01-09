@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     Log.d("LoginResponse", "Full Response: " + new Gson().toJson(loginResponse));
 
-                    if ((loginResponse != null) && (loginResponse.result.getError().equals(false))) {
+                    if ((loginResponse.result.getError().equals(false))) {
                         tvLoginMessage.setText("Login successful");
 
                         // Save login data in SharedPreferences
@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        tvLoginMessage.setText(loginResponse != null ? loginResponse.message : "Login failed");
+                        tvLoginMessage.setText(loginResponse.result.getMessage());
                         Log.e("LoginError", "Error: " + (loginResponse != null ? loginResponse.message : "Unknown error"));
                     }
                 } else {
                     Log.e("LoginError", "Response error: " + response.message());
                     Log.e("LoginError", "Raw response body: " + response.errorBody());
-                    tvLoginMessage.setText("Response error: " + response.message());
+                    tvLoginMessage.setText("Something went wrong");
                 }
             }
 

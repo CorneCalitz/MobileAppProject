@@ -47,16 +47,11 @@ public class QuizViewActivity extends AppCompatActivity {
         tvQuizTitle = findViewById(R.id.tvQuizTitle);
         tvQuestionsAmount = findViewById(R.id.tvQuestionsAmount);
         tvScore = findViewById(R.id.tvScore);
-        tvPercent = findViewById(R.id.tvPercent);
         tvCourseName = findViewById(R.id.tvCourseName);
         tvPassedCheck = findViewById(R.id.tvPassedCheck);
 
 
         btnAttempt = findViewById(R.id.btnAttempt);
-        btnCourseLink = findViewById(R.id.btnCourseLink);
-        btnQuizBack = findViewById(R.id.btnQuizBack);
-
-
 
         loginResponseString = getIntent().getStringExtra("loginResponse");
         loginResponse = new Gson().fromJson(loginResponseString, LoginResponse.class);
@@ -89,12 +84,10 @@ public class QuizViewActivity extends AppCompatActivity {
 
                         tvQuizTitle.setText(quizData.quiz_data.getName());
                         tvCourseName.setText(quizData.course_data.getName());
-                        tvQuestionsAmount.setText(Integer.toString(questionAmount));
-                        tvScore.setText(Integer.toString(score));
-                        tvPercent.setText("100%");
-                        tvPassedCheck.setText("Passed");
-
-                        btnCourseLink.setText(quizData.course_data.getName());
+                        tvQuestionsAmount.setText(String.format("Questions: %s",questionAmount));
+                        tvScore.setText(String.format("Score: %s / %s",score, questionAmount));
+                        //TODO add a pass check
+                        tvPassedCheck.setText("Failed");
 
                         btnAttempt.setOnClickListener(new View.OnClickListener() {
                             @Override

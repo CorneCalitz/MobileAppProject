@@ -1,87 +1,77 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".profile.ProfileFragment"
-    android:background="@android:color/white"
-    android:padding="16dp">
+    android:background="@android:color/white">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:padding="24dp">
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:contentDescription="User Name"
+        android:text="Username"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:contentDescription="User Name" />
+    <TextView
+        android:id="@+id/tvAccountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/account_type"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Account Type" />
 
-        <TextView
-            android:id="@+id/tvAccountType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvUserName"
-            android:layout_marginTop="4dp"
-            android:text="@string/account_type"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:contentDescription="Account Type" />
+    <TextView
+        android:id="@+id/tvTestsTaken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/tests_taken"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tvAccountType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Tests Taken" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tvAccountType"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray" />
+    <TextView
+        android:id="@+id/tvTestsPassed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tests_passed"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTestsTaken"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Tests Passed" />
 
-        <TextView
-            android:id="@+id/tvTestsTaken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvAccountType"
-            android:layout_marginTop="24dp"
-            android:text="@string/tests_taken"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:contentDescription="Tests Taken" />
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/gold"
 
-        <TextView
-            android:id="@+id/tvTestsPassed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvTestsTaken"
-            android:layout_marginTop="8dp"
-            android:text="@string/tests_passed"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:contentDescription="Tests Passed" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tvTestsPassed"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/tvQuizScores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvTestsPassed"
-            android:layout_marginTop="24dp"
-            android:text="@string/recent_quiz_scores"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:contentDescription="Recent Quiz Scores" />
-
-
-    </RelativeLayout>
-</FrameLayout>
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 

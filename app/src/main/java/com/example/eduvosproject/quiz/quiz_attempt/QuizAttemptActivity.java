@@ -43,9 +43,7 @@ public class QuizAttemptActivity extends AppCompatActivity {
     String loginResponseString;
     LoginResponse loginResponse;
 
-    HashMap<Integer, Integer> responseDict = new HashMap<Integer, Integer>();
     ArrayList<QuizResponse> quizResponses = new ArrayList<>();
-
     ArrayList<QuizQuestions> quizQuestions = new ArrayList<>();
     ArrayList<QuizChoices> quizChoices = new ArrayList<>();
 
@@ -116,18 +114,14 @@ public class QuizAttemptActivity extends AppCompatActivity {
 
                 String quizQuestionsString = convert.toJson(quizQuestions);
                 String quizResponseString =convert.toJson(quizResponses);
-
                 Intent intent = new Intent(QuizAttemptActivity.this, QuizCompletedActivity.class);
                 intent.putExtra("quizData",quizDataString);
                 intent.putExtra("loginResponse", loginResponseString);
                 intent.putExtra("quizResponses", quizResponseString);
                 intent.putExtra("quizQuestions", quizQuestionsString);
-
                 startActivity(intent);
                 finish();
             }
-
-
         }
     });
     populateQuestionModel();

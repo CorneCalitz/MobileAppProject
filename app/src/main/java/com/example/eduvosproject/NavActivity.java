@@ -31,9 +31,6 @@ public class NavActivity extends AppCompatActivity {
         binding = ActivityNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Button btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(view -> logout());
-
         loginJson = getIntent().getStringExtra("jsonString");
         Log.d("NavActivity", "Received loginJson: " + loginJson);
         loginResponse = new Gson().fromJson(loginJson, LoginResponse.class);
@@ -77,14 +74,4 @@ public class NavActivity extends AppCompatActivity {
         edt.apply();
     }
 
-    public void logout() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
-        Log.d("NavActivity", "User data cleared, redirecting to login");
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
 }
