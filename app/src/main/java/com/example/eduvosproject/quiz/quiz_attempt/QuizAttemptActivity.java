@@ -91,7 +91,7 @@ public class QuizAttemptActivity extends AppCompatActivity {
             if (rgChoices.getCheckedRadioButtonId() == -1) {
                 Log.d("radiobutton", "No button checked");
                 // Set as zero since user automatically fails a null check
-                //responseDict.put(quizQuestions.get(quizPosition).getId(), 0);
+                // responseDict.put(quizQuestions.get(quizPosition).getId(), 0);
                 quizResponses.add(new QuizResponse(loginResponse.profile.getProfile_id(), quizQuestions.get(quizPosition).getId(), 0));
 
             } else {
@@ -159,7 +159,6 @@ public class QuizAttemptActivity extends AppCompatActivity {
         tvQuestion.setText(quizQuestions.get(pos).getQuestion());
         tvContext.setText(quizQuestions.get(pos).getContext());
         tvQuizPos.setText(Integer.toString(pos + 1) + " / " + Integer.toString(size));
-
     }
 
     public void quizAttempt() {

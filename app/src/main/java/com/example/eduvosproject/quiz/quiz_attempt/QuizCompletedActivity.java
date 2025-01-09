@@ -1,7 +1,9 @@
 package com.example.eduvosproject.quiz.quiz_attempt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eduvosproject.LoginResponse;
+import com.example.eduvosproject.MainActivity;
+import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,34 +78,46 @@ public class QuizCompletedActivity extends AppCompatActivity {
         Log.d("question",  quizQuestions.get(0).getQuestion());
 
 
-        numCorrect = 4;
+        numCorrect = 0;
+        Log.d("size of quizResponses", String.format("%s",quizResponses.size()));
 
-        //Consider putting this in a separate function.
-        //TODO need to sort hashmap and arraylist for good measure before comparing answer values
-        //for (int i=0; i <= quizResponses.size(); i++) {
-         //   if (quizResponses.get(i).questionResponse == quizQuestions.get(i).getAnswer()) {
-         //       Log.d("testCorrect", Integer.toString(quizResponses.get(i).getQuestionResponse()));
-         //       numCorrect = numCorrect + 1;
-         //   } else {
-          //      Log.d("testWrong", Integer.toString(quizResponses.get(i).getQuestionResponse()));
-//        }
+        for (int i=0; i < quizResponses.size(); i++) {
 
-        //As longs as the number of correct is larger than half of the questions.
-        if (numCorrect > 0) {
-            passed = true;
-        } else {
-            passed = false;
+            if (quizResponses.get(i).questionResponse == quizQuestions.get(i).getAnswer()) {
+                Log.d(String.format("response:%s",i), String.format("%s",quizResponses.get(i).getQuestionResponse()));
+                Log.d(String.format("answer:%s",i), String.format("%s",quizQuestions.get(i).getAnswer()));
+                numCorrect = numCorrect + 1;
+            } else {
+                Log.d(String.format("response:%s",i), String.format("%s",quizResponses.get(i).getQuestionResponse()));
+                Log.d(String.format("answer:%s",i), String.format("%s",quizQuestions.get(i).getAnswer()));
+            }
         }
 
-        setGUI();
+        //Checks that the user scores above or equal to 50%.
+        double minPassMark = Math.ceil(quizData.score.getQuestionAmount()/ 2.0);
+        if (numCorrect >= minPassMark) {
+            passed = true;
+        } else {
+            passed = false;;
+        }
 
-        saveResponse();
+
+        setGUI();
 
         updateQuizData();
 
         updateProfile();
 
         //Button on click
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QuizCompletedActivity.this, NavActivity.class);
+                intent.putExtra("jsonString", convert.toJson(loginResponse)); // Passing login data
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void setGUI() {
@@ -121,7 +137,8 @@ public class QuizCompletedActivity extends AppCompatActivity {
     }
 
     public void saveResponse(){
-        //Save response of quiz in db
+        //Save response of quiz in db.
+        //Not relevant for showcase.
     }
 
     public void updateQuizData() {

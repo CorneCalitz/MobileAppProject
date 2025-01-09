@@ -87,7 +87,7 @@ public class QuizViewActivity extends AppCompatActivity {
                         tvQuestionsAmount.setText(String.format("Questions: %s",questionAmount));
                         tvScore.setText(String.format("Score: %s / %s",score, questionAmount));
                         //TODO add a pass check
-                        tvPassedCheck.setText("Failed");
+                        tvPassedCheck.setText(passCheck(score, questionAmount));
 
                         btnAttempt.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -124,7 +124,14 @@ public class QuizViewActivity extends AppCompatActivity {
         });
     }
 
-    public double calcPercentage(int score, int question) {
-        return ((double) score / (double) question) * 100;
+    public String passCheck(int score, int amount) {
+        //Checks that the user scores above or equal to 50%.
+        double minPassMark = Math.ceil(amount/ 2.0);
+        Log.d("minPass", Double.toString(minPassMark));
+        if (score >= minPassMark) {
+            return "Passed";
+        } else {
+            return "Failed";
+        }
     }
 }
