@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.NavActivity;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
@@ -40,11 +41,15 @@ public class QuizAttemptActivity extends AppCompatActivity {
     QuizData quizData;
     String quizDataString;
     String loginResponseString;
+    LoginResponse loginResponse;
 
     HashMap<Integer, Integer> responseDict = new HashMap<Integer, Integer>();
+    ArrayList<QuizResponse> quizResponses = new ArrayList<>();
 
     ArrayList<QuizQuestions> quizQuestions = new ArrayList<>();
     ArrayList<QuizChoices> quizChoices = new ArrayList<>();
+
+    Gson convert = new Gson();
 
     int quizPosition = 0;
     int quizSize = 0;
@@ -74,9 +79,11 @@ public class QuizAttemptActivity extends AppCompatActivity {
     btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
     quizDataString = getIntent().getStringExtra("quizData");
-    quizData = new Gson().fromJson(quizDataString, QuizData.class);
+    quizData = convert.fromJson(quizDataString, QuizData.class);
 
     loginResponseString = getIntent().getStringExtra("loginResponse");
+    loginResponse = convert.fromJson(loginResponseString, LoginResponse.class);
+
 
     btnNextQuestion.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -86,15 +93,17 @@ public class QuizAttemptActivity extends AppCompatActivity {
             if (rgChoices.getCheckedRadioButtonId() == -1) {
                 Log.d("radiobutton", "No button checked");
                 // Set as zero since user automatically fails a null check
-                responseDict.put(quizQuestions.get(quizPosition).getId(), 0);
+                //responseDict.put(quizQuestions.get(quizPosition).getId(), 0);
+                quizResponses.add(new QuizResponse(loginResponse.profile.getProfile_id(), quizQuestions.get(quizPosition).getId(), 0));
 
             } else {
                 RadioButton selected = rgChoices.findViewById(rgChoices.getCheckedRadioButtonId());
-                responseDict.put(quizQuestions.get(quizPosition).getId(),selected.getId());
+                //responseDict.put(quizQuestions.get(quizPosition).getId(),selected.getId());
+                quizResponses.add(new QuizResponse(loginResponse.profile.getProfile_id(), quizQuestions.get(quizPosition).getId(), selected.getId()));
                 Log.d("radiobutton",Integer.toString(selected.getId()));
             }
 
-            Log.d("responses", responseDict.toString());
+            Log.d("responses", Integer.toString(quizResponses.get(quizPosition).getQuestionResponse()));
 
             quizPosition = quizPosition + 1;
             //Move to next set of questions if position of quiz is not at last stage.
@@ -105,12 +114,13 @@ public class QuizAttemptActivity extends AppCompatActivity {
                 //go to next activity.
                 Log.d("Next act", "Wish I was at DisneyLand now.");
 
-                String quizQuestionsString = new Gson().toJson(quizQuestions);
+                String quizQuestionsString = convert.toJson(quizQuestions);
+                String quizResponseString =convert.toJson(quizResponses);
 
                 Intent intent = new Intent(QuizAttemptActivity.this, QuizCompletedActivity.class);
                 intent.putExtra("quizData",quizDataString);
                 intent.putExtra("loginResponse", loginResponseString);
-                intent.putExtra("quizResponses", responseDict.toString());
+                intent.putExtra("quizResponses", quizResponseString);
                 intent.putExtra("quizQuestions", quizQuestionsString);
 
                 startActivity(intent);

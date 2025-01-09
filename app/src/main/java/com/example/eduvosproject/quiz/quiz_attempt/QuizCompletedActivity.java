@@ -15,7 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +32,8 @@ public class QuizCompletedActivity extends AppCompatActivity {
     String loginResponseString, quizDataString, quizResponsesString, quizQuestionsString;
     LoginResponse loginResponse;
     QuizData quizData;
+    ArrayList<QuizResponse> quizResponses;
     ArrayList<QuizQuestions> quizQuestions;
-    HashMap<Integer, Integer> responseDict;
 
     Gson convert =  new Gson();
 
@@ -63,32 +65,40 @@ public class QuizCompletedActivity extends AppCompatActivity {
         //Populate models using string conversion
         loginResponse = convert.fromJson(loginResponseString, LoginResponse.class);
         quizData = convert.fromJson(quizDataString, QuizData.class);
-        responseDict = convert.fromJson(quizResponsesString, HashMap.class);
-        quizQuestions = convert.fromJson(quizQuestionsString, ArrayList.class);
-
+        quizResponses = convert.fromJson(quizResponsesString, new TypeToken<ArrayList<QuizResponse>>(){}.getType());
+        quizQuestions = convert.fromJson(quizQuestionsString, new TypeToken<ArrayList<QuizQuestions>>(){}.getType());
 
         Log.d("login", loginResponse.user.getName());
         Log.d("quiz", quizData.quiz_data.getName());
-        Log.d("responseDict", responseDict.toString());
-        Log.d("question",  quizQuestions.toString());
+        Log.d("response", Integer.toString(quizResponses.get(0).getQuestionResponse()));
+        Log.d("question",  quizQuestions.get(0).getQuestion());
 
-        //Log.d("response dictionary", (responseDict.get(1)).toString());
 
-        numCorrect = 5;
+        numCorrect = 1;
 
         //Consider putting this in a separate function.
         //TODO need to sort hashmap and arraylist for good measure before comparing answer values
+        //for (int i=0; i <= quizResponses.size(); i++) {
+         //   if (quizResponses.get(i).questionResponse == quizQuestions.get(i).getAnswer()) {
+         //       Log.d("testCorrect", Integer.toString(quizResponses.get(i).getQuestionResponse()));
+         //       numCorrect = numCorrect + 1;
+         //   } else {
+          //      Log.d("testWrong", Integer.toString(quizResponses.get(i).getQuestionResponse()));
+//        }
 
         //As longs as the number of correct is larger than half of the questions.
-        if (numCorrect > quizData.score.getQuestionAmount()/2) {
+        if (numCorrect > 0) {
             passed = true;
         } else {
             passed = false;
         }
 
         setGUI();
+
         saveResponse();
+
         updateQuizData();
+
         updateProfile();
 
         //Button on click
