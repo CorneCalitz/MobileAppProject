@@ -5,7 +5,9 @@ import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.LoginRequest;
 import com.example.eduvosproject.course.course_view.CourseData;
 import com.example.eduvosproject.quiz.QuizItems;
+import com.example.eduvosproject.quiz.quiz_attempt.QuizChoices;
 import com.example.eduvosproject.quiz.quiz_attempt.QuizData;
+import com.example.eduvosproject.quiz.quiz_attempt.QuizQuestions;
 
 import java.util.ArrayList;
 
@@ -43,4 +45,14 @@ public interface UserService {
     @FormUrlEncoded
     @POST("app_php/fetch_quiz_data.php/")
     Call<QuizData> quizDataCall(@Field("quiz_id") int quizId, @Field("profile_id") int profileId);
+
+    //Question data fetch method
+    @FormUrlEncoded
+    @POST("app_php/fetch_quiz_questions.php/")
+    Call<ArrayList<QuizQuestions>> questionsDataCall(@Field("id") int quizId);
+
+    //Choice data fetch method
+    @FormUrlEncoded
+    @POST("app_php/fetch_quiz_choices.php/")
+    Call<ArrayList<QuizChoices>> choicesDataCall(@Field("id") int choiceId);
 }

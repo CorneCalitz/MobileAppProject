@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
             if (loginResponse != null && loginResponse.user != null) {
                 tvHomeMessage.setText(String.format("Welcome %s", loginResponse.user.getName()));
             } else {
-                tvHomeMessage.setText("Welcome John");
+                tvHomeMessage.setText("");
             }
         }
     }

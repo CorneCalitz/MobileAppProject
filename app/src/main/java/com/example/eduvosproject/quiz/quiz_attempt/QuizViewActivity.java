@@ -1,7 +1,9 @@
 package com.example.eduvosproject.quiz.quiz_attempt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.eduvosproject.LoginResponse;
 import com.example.eduvosproject.R;
 import com.example.eduvosproject.api.ApiClient;
+import com.example.eduvosproject.course.course_view.CourseViewActivity;
 import com.example.eduvosproject.quiz.QuizItems;
 import com.google.gson.Gson;
 
@@ -48,13 +51,13 @@ public class QuizViewActivity extends AppCompatActivity {
         tvCourseName = findViewById(R.id.tvCourseName);
         tvPassedCheck = findViewById(R.id.tvPassedCheck);
 
-        //TODO set buttons
+
         btnAttempt = findViewById(R.id.btnAttempt);
         btnCourseLink = findViewById(R.id.btnCourseLink);
         btnQuizBack = findViewById(R.id.btnQuizBack);
 
 
-        //TODO set models
+
         loginResponseString = getIntent().getStringExtra("loginResponse");
         loginResponse = new Gson().fromJson(loginResponseString, LoginResponse.class);
 
@@ -89,9 +92,20 @@ public class QuizViewActivity extends AppCompatActivity {
                         tvQuestionsAmount.setText(Integer.toString(questionAmount));
                         tvScore.setText(Integer.toString(score));
                         tvPercent.setText("100%");
-                        tvPassedCheck.setText("Passed moron");
+                        tvPassedCheck.setText("Passed");
 
                         btnCourseLink.setText(quizData.course_data.getName());
+
+                        btnAttempt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String quizDataString = new Gson().toJson(quizData);
+                                Intent intent = new Intent(QuizViewActivity.this, QuizAttemptActivity.class).putExtra("quizData", quizDataString);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
 
                     } else {
                         // Set textview for error message and hide buttons.
